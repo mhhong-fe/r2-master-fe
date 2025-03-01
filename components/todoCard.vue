@@ -2,7 +2,7 @@
     <div>
         <h1>Todo</h1>
         <div>
-            
+            <el-input></el-input>
         </div>
     </div>
 </template>
