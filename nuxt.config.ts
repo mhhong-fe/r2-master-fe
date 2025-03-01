@@ -10,4 +10,13 @@ export default defineNuxtConfig({
     elementPlus: {
         /** Options */
     },
+    css: ["@/assets/styles/index.scss"],
+    // vite相关配置
+    vite: {
+        css: {
+            preprocessorOptions: {
+                scss: {},
+            },
+        },
+    },
 });
