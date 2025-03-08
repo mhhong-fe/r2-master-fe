@@ -1,9 +1,9 @@
 <template>
     <div class="card">
         <div class="todo-list">
-            <div v-for="item in todoList" :key="item.content" class="todo-item">
+            <div v-for="item in todoList" :key="item.title" class="todo-item">
                 <el-checkbox v-model="item.checked">
-                    <span>{{ item.content }}</span>
+                    <span>{{ item.title }}</span>
                 </el-checkbox>
                 <div class="todo-right">
                     <div class="todo-tag">{{ item.tag }}</div>
@@ -16,16 +16,18 @@
         <div class="add-btn" @click="openDialog">
             <el-icon><ElIconPlus /></el-icon>
         </div>
-        <el-dialog
+        <el-drawer
             v-model="dialogVisible"
             :show-close="false"
             align-center
+            size="300"
+            direction="btt"
             title="create todo"
             class="todo-dialog"
         >
             <el-form>
-                <el-form-item label="内容">
-                    <el-input v-model="todoItem.content" />
+                <el-form-item label="标题">
+                    <el-input v-model="todoItem.title" />
                 </el-form-item>
                 <el-form-item label="标签">
                     <el-input v-model="todoItem.tag" />
@@ -34,7 +36,7 @@
             <template #footer>
                 <el-button @click="addTodo">保存</el-button>
             </template>
-        </el-dialog>
+        </el-drawer>
     </div>
 </template>
 
@@ -43,54 +45,52 @@ import { ElIconOperation, ElIconPlus } from "#components";
 
 interface TodoItem {
     checked: boolean;
-    content: string;
+    title: string;
     tag: string;
 }
 
-const props = defineProps<{
-    date: string;
-}>();
+// const props = defineProps<{
+//     date: string;
+// }>();
 
-const todoList = ref<TodoItem[]>([
-    {
-        checked: false,
-        content: "读书半小时",
-        tag: "读书",
-    },
-    {
-        checked: false,
-        content: "读书半小时",
-        tag: "读书",
-    },
-]);
+const todoList = ref<TodoItem[]>([]);
+// for (let i = 0; i < 100; i++) {
+//     todoList.value.push({
+//         checked: false,
+//         content: `todo-${i}`,
+//         tag: `tag-${i}`,
+//     });
+// }
 
 const dialogVisible = ref(false);
 
 const todoItem = ref({
-    content: "",
+    title: "",
     tag: "",
 });
 
 const isEdit = ref(false);
 const defaultTodo = {
-    content: "",
     tag: "",
+    title: "",
 };
 
 const openDialog = (item = defaultTodo) => {
-    isEdit.value = !!item?.content;
-    todoItem.value = isEdit.value ? { ...item } : { content: "", tag: "" };
+    isEdit.value = !!item?.title;
+    todoItem.value = isEdit.value
+        ? { ...item }
+        : { title: "", tag: "", title: "" };
     dialogVisible.value = true;
 };
 
 const addTodo = () => {
-    if (!todoItem.value.content) {
+    if (!todoItem.value.title) {
         ElMessage.error("内容不能为空");
         return;
     }
     todoList.value.push({
         checked: false,
-        content: todoItem.value.content,
+        title: todoItem.value.title,
         tag: todoItem.value.tag,
     });
 
@@ -163,15 +163,15 @@ onMounted(() => {
         justify-content: center;
         align-items: center;
     }
-}
 
-:deep(.el-dialog) {
-    width: calc(100vw - 80px);
-
-    .el-dialog__header {
-        display: flex;
-        justify-content: center;
-        font-weight: bold;
+    :deep(.el-drawer) {
+        height: 300px;
+        .el-drawer__title {
+            display: flex;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
     }
 }
 
