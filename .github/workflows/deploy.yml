@@ -49,5 +49,5 @@ jobs:
               pm2 restart r2-master-fe
             else
               echo "Application is not running. Starting..."
-              pm2 start .output/server/index.mjs --name "r2-master-fe --port=4001"
+              pm2 start .output/server/index.mjs --name "r2-master-fe" --port=4001
             fi
