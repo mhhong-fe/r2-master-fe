@@ -1,7 +1,7 @@
 <template>
     <div class="container">
-        <DateSelect />
-        <TodoCard></TodoCard>
+        <DateSelect @change="refreshDate" />
+        <TodoCard :date="date" :key="date"></TodoCard>
         <!-- <div class="footer-menu">
             <div>阅读报告</div>
             <div>1122</div>
@@ -11,6 +11,7 @@
 </template>
 
 <script setup lang="ts">
+import dayjs from "dayjs";
 import TodoCard from "./components/todo-card.vue";
 import DateSelect from "./components/date-select.vue";
 definePageMeta({
@@ -43,7 +44,11 @@ useHead({
     ],
 });
 
-const date = ref("");
+const date = ref(dayjs().format("YYYY-MM-DD"));
+
+const refreshDate = (newDate: string) => {
+    date.value = newDate;
+};
 </script>
 
 <style scoped lang="scss">
