@@ -22,11 +22,6 @@ export default defineNuxtConfig({
             },
         },
     },
-    runtimeConfig: {
-        public: {
-            port: 4001,
-        },
-    },
     // vite相关配置
     vite: {
         css: {
