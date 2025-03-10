@@ -17,16 +17,16 @@
                         {{ item.tag }}
                     </div>
                     <div class="edit-btn" @click="openDialog(item)">
-                        <el-icon><ElIconOperation /></el-icon>
+                        <el-icon><Operation /></el-icon>
                     </div>
                     <div class="edit-btn" @click="deleteTodo(item.id)">
-                        <el-icon><ElIconDelete /></el-icon>
+                        <el-icon><Delete /></el-icon>
                     </div>
                 </div>
             </div>
         </div>
         <div class="add-btn" @click="openDialog">
-            <el-icon><ElIconPlus /></el-icon>
+            <el-icon><Plus /></el-icon>
         </div>
         <el-drawer
             v-model="dialogVisible"
@@ -53,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import { ElIconOperation, ElIconPlus, ElIconDelete } from "#components";
+import { Operation, Plus, Delete } from "@element-plus/icons-vue";
 
 interface TodoItem {
     id: number;
@@ -104,7 +104,9 @@ const addOrEdit = async () => {
         return;
     }
 
-    const toolApi = editedTodo.value?.id ? "/toolApi/todo/edit" : "/toolApi/todo/add";
+    const toolApi = editedTodo.value?.id
+        ? "/toolApi/todo/edit"
+        : "/toolApi/todo/add";
     const reqBody = {
         title: todoItem.value.title,
         tag: todoItem.value.tag,

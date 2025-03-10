@@ -2,11 +2,11 @@
     <div>
         <div class="header">
             <div @click="getPrevWeek">
-                <el-icon><ElIconArrowLeft /></el-icon>
+                <el-icon><ArrowLeft /></el-icon>
             </div>
             <span>{{ selectedDate }}</span>
             <div @click="getNextWeek">
-                <el-icon><ElIconArrowRight /></el-icon>
+                <el-icon><ArrowRight /></el-icon>
             </div>
         </div>
         <div class="week-list">
@@ -28,7 +28,8 @@
 </template>
 
 <script setup lang="ts">
-import { ElIconArrowLeft, ElIconArrowRight } from "#components";
+import { ArrowLeft, ArrowRight } from "@element-plus/icons-vue";
+
 import dayjs from "dayjs";
 
 const emit = defineEmits(["change"]);
