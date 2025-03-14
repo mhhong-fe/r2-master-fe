@@ -4,57 +4,65 @@
         <div class="empty" v-else-if="todoList.length === 0">今日无事</div>
         <div v-else class="todo-list">
             <div v-for="item in todoList" :key="item.title" class="todo-item">
-                <el-checkbox
+                <van-checkbox
                     v-model="item.completed"
                     @change="handleChange(item)"
                     :true-value="1"
                     :false-value="0"
                 >
                     <span class="todo-title">{{ item.title }}</span>
-                </el-checkbox>
+                </van-checkbox>
                 <div class="todo-right">
                     <div v-if="item.tag" class="todo-tag">
                         {{ item.tag }}
                     </div>
                     <div class="edit-btn" @click="openDialog(item)">
-                        <el-icon><Operation /></el-icon>
+                        <van-icon name="ellipsis" />
                     </div>
                     <div class="edit-btn" @click="deleteTodo(item.id)">
-                        <el-icon><Delete /></el-icon>
+                        <van-icon name="delete-o" />
                     </div>
                 </div>
             </div>
         </div>
-        <div class="add-btn" @click="openDialog">
-            <el-icon><Plus /></el-icon>
-        </div>
-        <el-drawer
-            v-model="dialogVisible"
-            :show-close="false"
-            align-center
-            size="300"
-            direction="btt"
-            title="create todo"
-            class="todo-dialog"
+        <van-popup
+            v-model:show="dialogVisible"
+            position="bottom"
+            round
+            :style="{ height: '200px', padding: '12px' }"
         >
-            <el-form>
-                <el-form-item label="标题">
-                    <el-input v-model="todoItem.title" />
-                </el-form-item>
-                <el-form-item label="标签">
-                    <el-input v-model="todoItem.tag" />
-                </el-form-item>
-            </el-form>
-            <template #footer>
-                <el-button type="primary" @click="addOrEdit">保存</el-button>
-            </template>
-        </el-drawer>
+            <div>
+                <div class="add-title">创建todo</div>
+                <van-field
+                    v-model="todoItem.title"
+                    label-width="30"
+                    left-icon="orders-o"
+                    label="标题"
+                />
+                <van-field
+                    left-icon="notes-o"
+                    label-width="30"
+                    v-model="todoItem.tag"
+                    label="标签"
+                />
+                <div class="confirm-btn">
+                    <van-button
+                        round
+                        type="success"
+                        block
+                        size="small"
+                        @click="addOrEdit"
+                        >添加</van-button
+                    >
+                </div>
+            </div>
+        </van-popup>
+        <!-- <div class="add-btn" @click="openDialog()">+</div> -->
+        <van-floating-bubble icon="plus" @click="openDialog()" />
     </div>
 </template>
 
 <script setup lang="ts">
-import { Operation, Plus, Delete } from "@element-plus/icons-vue";
-
 interface TodoItem {
     id: number;
     completed: boolean;
@@ -67,13 +75,6 @@ const props = defineProps<{
 }>();
 
 const todoList = ref<TodoItem[]>([]);
-// for (let i = 0; i < 100; i++) {
-//     todoList.value.push({
-//         completed: false,
-//         content: `todo-${i}`,
-//         tag: `tag-${i}`,
-//     });
-// }
 
 const dialogVisible = ref(false);
 
@@ -96,11 +97,12 @@ const openDialog = (item = defaultTodo) => {
     editedTodo.value = item;
     todoItem.value = item ? { ...item } : { ...defaultTodo };
     dialogVisible.value = true;
+    console.log("click", dialogVisible);
 };
 
 const addOrEdit = async () => {
     if (!todoItem.value.title) {
-        ElMessage.error("标题不能为空");
+        showNotify({ message: "标题不能为空" });
         return;
     }
 
@@ -247,13 +249,21 @@ init();
         align-items: center;
     }
 
-    :deep(.el-drawer) {
-        height: 300px;
-        .el-drawer__title {
+    :deep(.van-popup) {
+        .add-title {
             display: flex;
             justify-content: center;
-            font-weight: bold;
-            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .van-field {
+            padding-left: 0;
+        }
+
+        .confirm-btn {
+            position: fixed;
+            bottom: 12px;
+            width: calc(100% - 24px);
         }
     }
 }
