@@ -107,8 +107,8 @@ const addOrEdit = async () => {
     }
 
     const toolApi = editedTodo.value?.id
-        ? "/toolApi/todo/edit"
-        : "/toolApi/todo/add";
+        ? "http://114.55.133.112:4000/todo/edit"
+        : "http://114.55.133.112:4000/todo/add";
     const reqBody = {
         title: todoItem.value.title,
         tag: todoItem.value.tag,
@@ -139,8 +139,7 @@ const addOrEdit = async () => {
 };
 
 const deleteTodo = async (id: number) => {
-    console.log({ id });
-    await fetch("/toolApi/todo/delete", {
+    await fetch("http://114.55.133.112:4000/todo/delete", {
         method: "POST",
         headers: {
             "Content-Type": "application/json", // 添加请求头
@@ -151,7 +150,7 @@ const deleteTodo = async (id: number) => {
 };
 
 const handleChange = async (item: TodoItem) => {
-    await fetch("/toolApi/todo/check", {
+    await fetch("http://114.55.133.112:4000/todo/check", {
         method: "POST",
         headers: {
             "Content-Type": "application/json", // 添加请求头
@@ -165,7 +164,7 @@ const init = async () => {
     try {
         loading.value = true;
         const res = await fetch(
-            `/toolApi/todo/list?date=${props.date}&type=1`
+            `http://114.55.133.112:4000/todo/list?date=${props.date}&type=1`
         ).then((res) => res.json());
         todoList.value = res.data;
     } catch (error) {
