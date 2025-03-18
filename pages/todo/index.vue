@@ -56,6 +56,8 @@ const refreshDate = (newDate: string) => {
     max-width: 440px;
     height: 100vh;
     margin: 0 auto;
+    background-color: #fafafa;
+    padding: 12px;
 }
 
 .footer-menu {

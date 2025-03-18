@@ -12,7 +12,7 @@
 .app-container {
     width: 100vw;
     height: 100vh;
-    background-color: #fafafa;
-    padding: 12px;
+    /* background-color: #fafafa;
+    padding: 12px; */
 }
 </style>

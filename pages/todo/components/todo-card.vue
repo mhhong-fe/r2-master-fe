@@ -267,8 +267,4 @@ init();
         }
     }
 }
-
-.el-dialog.todo-dialog {
-    width: calc(100vw - 80px);
-}
 </style>
