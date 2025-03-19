@@ -11,8 +11,8 @@
 <style scoped>
 .app-container {
     width: 100vw;
-    height: 100vh;
-    /* background-color: #fafafa;
+    /* height: 100vh;
+    background-color: #fafafa;
     padding: 12px; */
 }
 </style>

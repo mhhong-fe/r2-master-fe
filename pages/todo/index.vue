@@ -35,12 +35,6 @@ useHead({
             content:
                 "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0",
         },
-        // webapp图标，没生效
-        {
-            name: "apple-touch-icon",
-            content: "/apple-touch-icon.png",
-            hid: "apple-touch-icon",
-        },
     ],
 });
 
