@@ -54,10 +54,10 @@ const refreshDate = (newDate: string) => {
 <style scoped lang="scss">
 .container {
     max-width: 440px;
-    height: 100vh;
     margin: 0 auto;
     background-color: #fafafa;
     padding: 12px;
+    height: 100dvh;
 }
 
 .footer-menu {
