@@ -3,7 +3,7 @@
         <DateSelect @change="refreshDate" />
         <TodoCard :date="date" :key="date"></TodoCard>
         <!-- <div class="footer-menu">
-            <div>阅读报告</div>
+            <div>日目标</div>
             <div>1122</div>
             <div>2233</div>
         </div> -->
@@ -63,7 +63,7 @@ const refreshDate = (newDate: string) => {
     display: flex;
     justify-content: space-between;
     background-color: #e2e2e2;
-    height: 40px;
-    line-height: 40px;
+    height: 56px;
+    line-height: 56px;
 }
 </style>

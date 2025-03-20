@@ -2,29 +2,63 @@
     <div class="card">
         <div class="empty" v-if="loading">加载中...</div>
         <div class="empty" v-else-if="todoList.length === 0">今日无事</div>
-        <div v-else class="todo-list">
-            <div v-for="item in todoList" :key="item.title" class="todo-item">
-                <van-checkbox
-                    v-model="item.completed"
-                    @change="handleChange(item)"
-                    :true-value="1"
-                    :false-value="0"
+        <template v-else>
+            <div class="todo-list">
+                <div
+                    v-for="item in uncompletedList"
+                    :key="item.title"
+                    class="todo-item"
                 >
-                    <span class="todo-title">{{ item.title }}</span>
-                </van-checkbox>
-                <div class="todo-right">
-                    <div v-if="item.tag" class="todo-tag">
-                        {{ item.tag }}
-                    </div>
-                    <div class="edit-btn" @click="openDialog(item)">
-                        <van-icon name="ellipsis" />
-                    </div>
-                    <div class="edit-btn" @click="deleteTodo(item.id)">
-                        <van-icon name="delete-o" />
+                    <van-checkbox
+                        v-model="item.completed"
+                        @change="handleChange(item)"
+                        :true-value="1"
+                        :false-value="0"
+                    >
+                        <span class="todo-title">{{ item.title }}</span>
+                    </van-checkbox>
+                    <div class="todo-right">
+                        <div v-if="item.tag" class="todo-tag">
+                            {{ item.tag }}
+                        </div>
+                        <div class="edit-btn" @click="openDialog(item)">
+                            <van-icon name="ellipsis" />
+                        </div>
+                        <div class="edit-btn" @click="deleteTodo(item.id)">
+                            <van-icon name="delete-o" />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <div v-if="completedList.length" class="todo-list">
+                <div class="title">已完成</div>
+                <div
+                    v-for="item in completedList"
+                    :key="item.title"
+                    class="todo-item"
+                >
+                    <van-checkbox
+                        v-model="item.completed"
+                        @change="handleChange(item)"
+                        :true-value="1"
+                        :false-value="0"
+                    >
+                        <span class="todo-title">{{ item.title }}</span>
+                    </van-checkbox>
+                    <div class="todo-right">
+                        <div v-if="item.tag" class="todo-tag">
+                            {{ item.tag }}
+                        </div>
+                        <div class="edit-btn" @click="openDialog(item)">
+                            <van-icon name="ellipsis" />
+                        </div>
+                        <div class="edit-btn" @click="deleteTodo(item.id)">
+                            <van-icon name="delete-o" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
         <van-popup
             v-model:show="dialogVisible"
             position="bottom"
@@ -75,6 +109,13 @@ const props = defineProps<{
 }>();
 
 const todoList = ref<TodoItem[]>([]);
+
+const completedList = computed(() =>
+    todoList.value.filter((item) => item.completed)
+);
+const uncompletedList = computed(() =>
+    todoList.value.filter((item) => !item.completed)
+);
 
 const dialogVisible = ref(false);
 
@@ -180,7 +221,7 @@ init();
 .card {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
 
     margin-top: 10px;
 
@@ -197,6 +238,12 @@ init();
         border: 1px solid #e8e8e8;
         border-radius: 8px;
         background-color: #fff;
+
+        .title {
+            // font-size: 12px;
+            padding: 12px 12px 0 12px;
+            color: #606266;
+        }
     }
 
     .todo-item {
