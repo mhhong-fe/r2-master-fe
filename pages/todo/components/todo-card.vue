@@ -131,12 +131,8 @@ const props = defineProps<{
 
 const todoList = ref<TodoItem[]>([]);
 
-const completedList = computed(() =>
-    todoList.value.filter((item) => item.completed)
-);
-const uncompletedList = computed(() =>
-    todoList.value.filter((item) => !item.completed)
-);
+const completedList = ref<TodoItem[]>([]);
+const uncompletedList = ref<TodoItem[]>([]);
 
 const dialogVisible = ref(false);
 
@@ -206,6 +202,7 @@ const deleteTodo = async (id: number) => {
 };
 
 const handleChange = async (item: TodoItem) => {
+    console.log("change");
     await fetch("/toolApi/todo/check", {
         method: "POST",
         headers: {
@@ -213,7 +210,13 @@ const handleChange = async (item: TodoItem) => {
         },
         body: JSON.stringify({ id: item.id, completed: item.completed }),
     });
-    // init();
+
+    setTimeout(() => {
+        completedList.value = todoList.value.filter((item) => item.completed);
+        uncompletedList.value = todoList.value.filter(
+            (item) => !item.completed
+        );
+    }, 1000);
 };
 
 const init = async () => {
@@ -223,6 +226,11 @@ const init = async () => {
             `/toolApi/todo/list?date=${props.date}&type=${props.type}`
         ).then((res) => res.json());
         todoList.value = res.data;
+
+        completedList.value = todoList.value.filter((item) => item.completed);
+        uncompletedList.value = todoList.value.filter(
+            (item) => !item.completed
+        );
     } catch (error) {
     } finally {
         loading.value = false;
