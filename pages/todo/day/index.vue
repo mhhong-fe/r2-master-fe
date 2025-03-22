@@ -1,21 +1,23 @@
 <template>
     <div class="container">
         <DateSelect @change="refreshDate" />
-        <TodoCard :date="date" :key="date"></TodoCard>
+        <TodoCard :date="date" :key="date" :type="TodoType.DAY"></TodoCard>
         <!-- <div class="footer-menu">
-            <div>日目标</div>
-            <div>1122</div>
-            <div>2233</div>
+            <div>日</div>
+            <div>周</div>
+            <div>月</div>
+            <div>统计</div>
         </div> -->
     </div>
 </template>
 
 <script setup lang="ts">
 import dayjs from "dayjs";
-import TodoCard from "./components/todo-card.vue";
-import DateSelect from "./components/date-select.vue";
+import TodoCard from "../components/todo-card.vue";
+import DateSelect from "../components/date-select.vue";
+import { TodoType } from "../type";
 definePageMeta({
-    name: "todo",
+    key: (route) => route.fullPath,
     layout: "default",
 });
 
@@ -51,19 +53,6 @@ const refreshDate = (newDate: string) => {
     margin: 0 auto;
     background-color: #fafafa;
     padding: 12px;
-    height: 100dvh;
-}
-
-.footer-menu {
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: space-between;
-    background-color: #e2e2e2;
-    height: 56px;
-    line-height: 56px;
+    height: calc(100dvh - 90px);
 }
 </style>

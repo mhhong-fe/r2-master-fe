@@ -1,7 +1,12 @@
 <template>
     <div class="card">
         <div class="empty" v-if="loading">加载中...</div>
-        <div class="empty" v-else-if="todoList.length === 0">今日无事</div>
+        <div class="empty" v-else-if="todoList.length === 0">
+            <div v-if="props.type === TodoType.DAY">当日无事！</div>
+            <div v-else-if="props.type === TodoType.WEEK">本周无事！</div>
+            <div v-else-if="props.type === TodoType.MONTH">本月无事！</div>
+            <div v-else>本年无事！</div>
+        </div>
         <template v-else>
             <div class="todo-list">
                 <div
@@ -110,6 +115,8 @@
 </template>
 
 <script setup lang="ts">
+import { TodoType } from "../type";
+
 interface TodoItem {
     id: number;
     completed: boolean;
@@ -119,6 +126,7 @@ interface TodoItem {
 
 const props = defineProps<{
     date: string;
+    type: TodoType;
 }>();
 
 const todoList = ref<TodoItem[]>([]);
@@ -170,7 +178,7 @@ const addOrEdit = async () => {
         tag: todoItem.value.tag,
         description: todoItem.value.description,
         date: props.date,
-        type: 1,
+        type: props.type,
         id: editedTodo.value.id,
     };
     const res = await fetch(toolApi, {
@@ -212,7 +220,7 @@ const init = async () => {
     try {
         loading.value = true;
         const res = await fetch(
-            `/toolApi/todo/list?date=${props.date}&type=1`
+            `/toolApi/todo/list?date=${props.date}&type=${props.type}`
         ).then((res) => res.json());
         todoList.value = res.data;
     } catch (error) {
