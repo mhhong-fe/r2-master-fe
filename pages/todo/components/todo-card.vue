@@ -15,15 +15,17 @@
                         :true-value="1"
                         :false-value="0"
                     >
-                        <span class="todo-title">{{ item.title }}</span>
                     </van-checkbox>
+                    <div class="todo-title" @click="openDialog(item)">
+                        <span>{{ item.title }}</span>
+                    </div>
                     <div class="todo-right">
                         <div v-if="item.tag" class="todo-tag">
                             {{ item.tag }}
                         </div>
-                        <div class="edit-btn" @click="openDialog(item)">
+                        <!-- <div class="edit-btn" @click="openDialog(item)">
                             <van-icon name="ellipsis" />
-                        </div>
+                        </div> -->
                         <div class="edit-btn" @click="deleteTodo(item.id)">
                             <van-icon name="delete-o" />
                         </div>
@@ -63,15 +65,26 @@
             v-model:show="dialogVisible"
             position="bottom"
             round
-            :style="{ height: '200px', padding: '12px' }"
+            :style="{ height: '300px', padding: '12px' }"
         >
             <div>
                 <div class="add-title">创建todo</div>
                 <van-field
                     v-model="todoItem.title"
                     label-width="30"
+                    maxlength="12"
                     left-icon="orders-o"
                     label="标题"
+                />
+                <van-field
+                    v-model="todoItem.description"
+                    label-width="30"
+                    :autosize="{ minHeight: 48, maxHeight: 72 }"
+                    show-word-limit
+                    maxlength="100"
+                    type="textarea"
+                    left-icon="orders-o"
+                    label="描述"
                 />
                 <van-field
                     left-icon="notes-o"
@@ -122,6 +135,7 @@ const dialogVisible = ref(false);
 // 正在编辑的表单
 const todoItem = ref({
     title: "",
+    description: "",
     tag: "",
 });
 
@@ -131,6 +145,7 @@ const loading = ref(false);
 const editedTodo = ref();
 const defaultTodo = {
     tag: "",
+    description: "",
     title: "",
 };
 
@@ -153,6 +168,7 @@ const addOrEdit = async () => {
     const reqBody = {
         title: todoItem.value.title,
         tag: todoItem.value.tag,
+        description: todoItem.value.description,
         date: props.date,
         type: 1,
         id: editedTodo.value.id,
@@ -165,15 +181,6 @@ const addOrEdit = async () => {
         body: JSON.stringify(reqBody),
     }).then((res) => res.json());
 
-    // if (!editedTodo.value) {
-    //     todoList.value.push({
-    //         completed: false,
-    //         ...todoItem.value,
-    //         id: res.id,
-    //     });
-    // } else {
-    //     editedTodo.value = { ...todoItem.value, completed: false };
-    // }
     init();
 
     dialogVisible.value = false;
@@ -258,6 +265,7 @@ init();
 
         .todo-title {
             color: #606266;
+            margin-left: 12px;
         }
 
         &:last-child {
