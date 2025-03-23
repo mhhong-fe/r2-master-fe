@@ -2,10 +2,11 @@
     <div class="card">
         <div class="empty" v-if="loading">加载中...</div>
         <div class="empty" v-else-if="todoList.length === 0">
-            <div v-if="props.type === TodoType.DAY">当日无事！</div>
+            <img :src="EmptyImg" alt="empty" />
+            <!-- <div v-if="props.type === TodoType.DAY">当日无事！</div>
             <div v-else-if="props.type === TodoType.WEEK">本周无事！</div>
             <div v-else-if="props.type === TodoType.MONTH">本月无事！</div>
-            <div v-else>本年无事！</div>
+            <div v-else>本年无事！</div> -->
         </div>
         <template v-else>
             <div class="todo-list">
@@ -117,6 +118,7 @@
 
 <script setup lang="ts">
 import { TodoType } from "../type";
+import EmptyImg from "@/assets/imgs/empty.webp";
 
 interface TodoItem {
     id: number;
@@ -252,6 +254,9 @@ init();
     .empty {
         margin-top: 200px;
         text-align: center;
+        img {
+            width: 200px;
+        }
     }
 
     .todo-list {
