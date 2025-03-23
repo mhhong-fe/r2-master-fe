@@ -51,7 +51,6 @@ const getWeekDatesByDate = (date: string) => {
     daysInWeek.value.forEach((item, index) => {
         item.value = start.add(index, "day").format("YYYY-MM-DD");
     });
-    console.log(daysInWeek.value);
 };
 
 // 获取上一周的日期
@@ -78,7 +77,6 @@ const handleDateChange = (date: string) => {
 };
 
 onMounted(() => {
-    console.log(selectedDate.value);
 
     getWeekDatesByDate(selectedDate.value);
 });

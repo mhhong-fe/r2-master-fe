@@ -160,7 +160,6 @@ const openDialog = (item = defaultTodo) => {
     editedTodo.value = item;
     todoItem.value = item ? { ...item } : { ...defaultTodo };
     dialogVisible.value = true;
-    console.log("click", dialogVisible);
 };
 
 const addOrEdit = async () => {
@@ -205,7 +204,6 @@ const deleteTodo = async (id: number) => {
 };
 
 const handleChange = async (item: TodoItem) => {
-    console.log("change");
     await fetch("/toolApi/todo/check", {
         method: "POST",
         headers: {
@@ -225,10 +223,13 @@ const handleChange = async (item: TodoItem) => {
 const init = async () => {
     try {
         loading.value = true;
-        const res = await fetch(
-            `/toolApi/todo/list?date=${props.date}&type=${props.type}`
-        ).then((res) => res.json());
-        todoList.value = res.data;
+        // const res = await fetch(
+        //     `/toolApi/todo/list?date=${props.date}&type=${props.type}`
+        // ).then((res) => res.json());
+        const res = await useFetch(
+            `https://www.mhhong.com/toolApi/todo/list?date=${props.date}&type=${props.type}`
+        );
+        todoList.value = res?.data.value.data;
 
         completedList.value = todoList.value.filter((item) => item.completed);
         uncompletedList.value = todoList.value.filter(
