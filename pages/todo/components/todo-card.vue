@@ -109,8 +109,9 @@
                 </div>
             </div>
         </van-popup>
-        <!-- <div class="add-btn" @click="openDialog()">+</div> -->
-        <van-floating-bubble icon="plus" @click="openDialog()" />
+        <div class="add-btn" @click="openDialog()">
+            <van-icon name="plus"></van-icon>
+        </div>
     </div>
 </template>
 
@@ -248,10 +249,6 @@ init();
 
     margin-top: 10px;
 
-    // .date {
-    //     text-align: center;
-    //     font-weight: bold;
-    // }
     .empty {
         margin-top: 200px;
         text-align: center;
@@ -306,10 +303,10 @@ init();
 
     .add-btn {
         position: fixed;
-        bottom: 36px;
+        bottom: 56px;
         right: 24px;
-        width: 48px;
-        height: 48px;
+        width: 40px;
+        height: 40px;
         border-radius: 50%;
         background-color: #407fff;
         color: #fff;

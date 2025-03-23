@@ -53,6 +53,6 @@ const refreshDate = (newDate: string) => {
     margin: 0 auto;
     background-color: #fafafa;
     padding: 12px;
-    height: calc(100dvh - 90px);
+    height: calc(100dvh - 40px);
 }
 </style>
