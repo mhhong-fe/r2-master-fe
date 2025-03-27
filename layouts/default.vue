@@ -35,8 +35,8 @@ const activeTab = ref(1);
     justify-content: space-between;
     border-top: 1px solid #ebebeb;
     box-shadow: 10px 10px 10px #ebebeb;
-    padding: 0 20px;
-    height: 40px;
+    padding: 0 20px 12px 20px;
+    height: 52px;
     line-height: 40px;
 
     a {

@@ -9,7 +9,12 @@
             <div v-else>本年无事！</div> -->
         </div>
         <template v-else>
-            <div class="todo-list">
+            <van-progress
+                :percentage="progress"
+                :pivot-text="pivotText"
+                stroke-width="8px"
+            />
+            <div v-if="uncompletedList.length" class="todo-list">
                 <div
                     v-for="item in uncompletedList"
                     :key="item.title"
@@ -137,6 +142,14 @@ const todoList = ref<TodoItem[]>([]);
 const completedList = ref<TodoItem[]>([]);
 const uncompletedList = ref<TodoItem[]>([]);
 
+const progress = computed(() =>
+    ((completedList.value.length * 100) / todoList.value.length).toFixed(1)
+);
+
+const pivotText = computed(() => {
+    return `${completedList.value.length} / ${todoList.value.length}`;
+});
+
 const dialogVisible = ref(false);
 
 // 正在编辑的表单
@@ -204,6 +217,16 @@ const deleteTodo = async (id: number) => {
 };
 
 const handleChange = async (item: TodoItem) => {
+    // 完成了当日第一项todo
+    if (item.completed && completedList.value.length === 0) {
+        showToast("加油，完成了第一项todo💪💪");
+    }
+    if (
+        item.completed &&
+        completedList.value.length === todoList.value.length - 1
+    ) {
+        showToast("🎉🎉太棒了，完成了今天全部的todo🎉🎉");
+    }
     await fetch("/toolApi/todo/check", {
         method: "POST",
         headers: {

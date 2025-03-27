@@ -55,10 +55,6 @@ const getPrevWeek = () => {
 const getNextWeek = () => {
     date.value = dayjs(date.value).add(7, "day").format("YYYY-MM-DD");
 };
-
-const refreshDate = (newDate: string) => {
-    date.value = newDate;
-};
 </script>
 
 <style scoped lang="scss">
