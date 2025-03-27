@@ -63,7 +63,7 @@ const getNextWeek = () => {
     margin: 0 auto;
     background-color: #fafafa;
     padding: 12px;
-    height: calc(100dvh - 40px);
+    height: calc(100dvh - 52px);
 
     .header {
         display: flex;
