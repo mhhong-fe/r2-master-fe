@@ -246,7 +246,7 @@ const handleChange = async (item: TodoItem) => {
         uncompletedList.value = todoList.value.filter(
             (item) => !item.completed
         );
-    }, 1000);
+    }, 400);
 };
 
 const init = async () => {
