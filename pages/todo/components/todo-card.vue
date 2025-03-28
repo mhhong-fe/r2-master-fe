@@ -3,10 +3,16 @@
         <div class="empty" v-if="loading">加载中...</div>
         <div class="empty" v-else-if="todoList.length === 0">
             <img :src="EmptyImg" alt="empty" />
-            <!-- <div v-if="props.type === TodoType.DAY">当日无事！</div>
-            <div v-else-if="props.type === TodoType.WEEK">本周无事！</div>
-            <div v-else-if="props.type === TodoType.MONTH">本月无事！</div>
-            <div v-else>本年无事！</div> -->
+            <span v-if="props.type === TodoType.DAY">
+                快开始做今天的规划吧!</span
+            >
+            <span v-else-if="props.type === TodoType.WEEK">
+                快开始做本周的规划吧!</span
+            >
+            <span v-else-if="props.type === TodoType.MONTH">
+                快开始做本月的规划吧!</span
+            >
+            <span v-else> 快开始做本年的规划吧!</span>
         </div>
         <template v-else>
             <van-progress
@@ -276,10 +282,20 @@ init();
     margin-top: 10px;
 
     .empty {
-        margin-top: 200px;
+        margin-top: 120px;
         text-align: center;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
         img {
             width: 200px;
+        }
+        span {
+            color: rgba(0, 0, 0, 0.45);
+            margin-top: 12px;
+            font-size: 12px;
         }
     }
 
