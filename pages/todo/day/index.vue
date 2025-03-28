@@ -25,7 +25,7 @@ useHead({
     title: "每日todo",
     meta: [
         // webapp，隐藏地址栏
-        { name: "apple-mobile-web-app-capable", content: "yes" },
+        { name: "mobile-web-app-capable", content: "yes" },
         // 地址栏颜色
         {
             name: "apple-mobile-web-app-status-bar-style",
