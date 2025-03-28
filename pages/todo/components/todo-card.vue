@@ -348,7 +348,7 @@ init();
 
     .add-btn {
         position: fixed;
-        bottom: 56px;
+        bottom: 80px;
         right: 24px;
         width: 40px;
         height: 40px;

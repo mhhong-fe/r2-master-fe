@@ -3,12 +3,14 @@
         <div class="content">
             <slot />
         </div>
-        <div class="footer-menu">
-            <NuxtLink to="/todo/day">日</NuxtLink>
-            <NuxtLink to="/todo/week">周</NuxtLink>
-            <NuxtLink to="/todo/month">月</NuxtLink>
-            <NuxtLink to="/todo/year">年</NuxtLink>
-            <NuxtLink to="/todo/data">统计</NuxtLink>
+        <div class="footer-container">
+            <div class="footer-menu">
+                <NuxtLink to="/todo/day">日</NuxtLink>
+                <NuxtLink to="/todo/week">周</NuxtLink>
+                <NuxtLink to="/todo/month">月</NuxtLink>
+                <NuxtLink to="/todo/year">年</NuxtLink>
+                <NuxtLink to="/todo/data">统计</NuxtLink>
+            </div>
         </div>
     </div>
 </template>
@@ -25,9 +27,16 @@ const activeTab = ref(1);
     padding: 12px; */
 }
 
-.footer-menu {
+.footer-container {
     position: fixed;
     width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.footer-menu {
+    width: 100%;
+    max-width: 440px;
     bottom: 0;
     left: 0;
     right: 0;
