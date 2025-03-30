@@ -89,7 +89,7 @@
                 <van-field
                     v-model="todoItem.title"
                     label-width="30"
-                    maxlength="12"
+                    maxlength="16"
                     left-icon="orders-o"
                     label="标题"
                 />

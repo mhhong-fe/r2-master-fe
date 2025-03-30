@@ -33,13 +33,13 @@ import dayjs from "dayjs";
 const emit = defineEmits(["change"]);
 
 const daysInWeek = ref([
-    { key: 0, label: "日", value: "" },
     { key: 1, label: "一", value: "" },
     { key: 2, label: "二", value: "" },
     { key: 3, label: "三", value: "" },
     { key: 4, label: "四", value: "" },
     { key: 5, label: "五", value: "" },
     { key: 6, label: "六", value: "" },
+    { key: 7, label: "日", value: "" },
 ]);
 
 const selectedDate = ref(dayjs().format("YYYY-MM-DD"));
@@ -47,25 +47,33 @@ const selectedDate = ref(dayjs().format("YYYY-MM-DD"));
 // 获取某一天所在周的日期
 const getWeekDatesByDate = (date: string) => {
     const today = dayjs(date);
-    const start = today.startOf("week"); // 周一
+    const start = today.startOf("week"); // 周日
     daysInWeek.value.forEach((item, index) => {
-        item.value = start.add(index, "day").format("YYYY-MM-DD");
+        item.value = start.add(index + 1, "day").format("YYYY-MM-DD");
     });
 };
 
-// 获取上一周的日期
+// 获取上一周的日期，上周一被选中
 const getPrevWeek = () => {
+    const index = daysInWeek.value.findIndex(
+        (item) => item.value === selectedDate.value
+    );
+
     const prevWeek = dayjs(selectedDate.value)
-        .subtract(7, "day")
+        .subtract(7 + index, "day")
         .format("YYYY-MM-DD");
     handleDateChange(prevWeek);
     getWeekDatesByDate(prevWeek);
 };
 
-// 获取下一周的日期
+// 获取下一周的日期，下周一被选中
 const getNextWeek = () => {
+    const index = daysInWeek.value.findIndex(
+        (item) => item.value === selectedDate.value
+    );
+
     const nextWeek = dayjs(selectedDate.value)
-        .add(7, "day")
+        .add(7 - index, "day")
         .format("YYYY-MM-DD");
     handleDateChange(nextWeek);
     getWeekDatesByDate(nextWeek);
@@ -77,7 +85,6 @@ const handleDateChange = (date: string) => {
 };
 
 onMounted(() => {
-
     getWeekDatesByDate(selectedDate.value);
 });
 </script>
