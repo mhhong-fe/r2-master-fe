@@ -47,9 +47,12 @@ const selectedDate = ref(dayjs().format("YYYY-MM-DD"));
 // 获取某一天所在周的日期
 const getWeekDatesByDate = (date: string) => {
     const today = dayjs(date);
-    const start = today.startOf("week"); // 周日
+    // 周日转成7
+    const todayKey = today.day() || 7;
+    // 获取本周的其他日期
     daysInWeek.value.forEach((item, index) => {
-        item.value = start.add(index + 1, "day").format("YYYY-MM-DD");
+        const distance = todayKey - item.key;
+        item.value = today.subtract(distance, "day").format("YYYY-MM-DD");
     });
 };
 

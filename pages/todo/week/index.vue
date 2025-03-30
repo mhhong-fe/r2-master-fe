@@ -26,13 +26,6 @@ definePageMeta({
 useHead({
     title: "每日todo",
     meta: [
-        // webapp，隐藏地址栏
-        { name: "mobile-web-app-capable", content: "yes" },
-        // 地址栏颜色
-        {
-            name: "apple-mobile-web-app-status-bar-style",
-            content: "black-translucent",
-        },
         // 禁止缩放
         {
             name: "viewport",
