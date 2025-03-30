@@ -5,41 +5,99 @@
         </div>
         <div class="footer-container">
             <div class="footer-menu">
-                <NuxtLink to="/todo/day">日</NuxtLink>
-                <NuxtLink to="/todo/week">周</NuxtLink>
-                <NuxtLink to="/todo/month">月</NuxtLink>
-                <NuxtLink to="/todo/year">年</NuxtLink>
-                <NuxtLink to="/todo/data">统计</NuxtLink>
+                <NuxtLink
+                    v-for="item in list"
+                    :to="item.key"
+                    :key="item.key"
+                    :class="item.className"
+                >
+                    <img
+                        v-show="item.key === route.meta.name"
+                        :src="item.activeImg"
+                        alt=""
+                    />
+                    <img
+                        v-show="item.key !== route.meta.name"
+                        :src="item.img"
+                        alt=""
+                    />
+                </NuxtLink>
             </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-const activeTab = ref(1);
+import DailyImg from "@/assets/imgs/day.png";
+import DailyActiveImg from "@/assets/imgs/day-active.png";
+import WeekImg from "@/assets/imgs/week.png";
+import WeekImgActive from "@/assets/imgs/week-active.png";
+import MonthImg from "@/assets/imgs/month.png";
+import MonthAcitiveImg from "@/assets/imgs/month-active.png";
+import YearImg from "@/assets/imgs/year.png";
+import YearActiveImg from "@/assets/imgs/year-active.png";
+import DataImg from "@/assets/imgs/data.png";
+import DataActiveImg from "@/assets/imgs/data-active.png";
+
+const route = useRoute();
+
+const list = [
+    {
+        route: "/todo/day",
+        key: "day",
+        img: DailyImg,
+        activeImg: DailyActiveImg,
+        className: "icon day-icon",
+    },
+    {
+        route: "/todo/week",
+        key: "week",
+        img: WeekImg,
+        activeImg: WeekImgActive,
+        className: "icon week",
+    },
+    {
+        route: "/todo/month",
+        key: "month",
+        img: MonthImg,
+        activeImg: MonthAcitiveImg,
+        className: "icon month",
+    },
+    {
+        route: "/todo/year",
+        key: "year",
+        img: YearImg,
+        activeImg: YearActiveImg,
+        className: "icon year",
+    },
+    {
+        route: "/todo/data",
+        key: "data",
+        img: DataImg,
+        activeImg: DataActiveImg,
+        className: "icon data",
+    },
+];
 </script>
 
 <style scoped>
 .app-container {
     width: 100vw;
-    /* height: 100vh;
-    background-color: #fafafa;
-    padding: 12px; */
 }
 
 .footer-container {
     position: fixed;
     width: 100%;
     display: flex;
+    bottom: 0;
+    left: 0;
+    right: 0;
     justify-content: center;
 }
 
 .footer-menu {
     width: 100%;
     max-width: 440px;
-    bottom: 0;
-    left: 0;
-    right: 0;
     display: flex;
     justify-content: space-between;
     border-top: 1px solid #ebebeb;
@@ -49,9 +107,33 @@ const activeTab = ref(1);
     line-height: 40px;
 
     a {
-        color: #000;
-        &.router-link-active {
-            color: #409eff;
+        img {
+            width: 28px;
+            height: 28px;
+            margin-top: 6px;
+        }
+
+        &.month {
+            img {
+                width: 24px;
+                height: 24px;
+                margin-top: 8px;
+            }
+        }
+
+        &.year {
+            img {
+                width: 24px;
+                height: 24px;
+                margin-top: 8px;
+            }
+        }
+        &.data {
+            img {
+                width: 24px;
+                height: 22px;
+                margin-top: 8px;
+            }
         }
     }
 }

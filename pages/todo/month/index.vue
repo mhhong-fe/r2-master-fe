@@ -19,7 +19,7 @@ import TodoCard from "../components/todo-card.vue";
 import { TodoType } from "../type";
 
 definePageMeta({
-    key: (route) => route.fullPath,
+    name: "month",
     layout: "default",
 });
 
@@ -62,9 +62,9 @@ const refreshDate = (newDate: string) => {
 .container {
     max-width: 440px;
     margin: 0 auto;
-    background-color: #fafafa;
+    // background-color: #fafafa;
     padding: 12px;
-    height: calc(100dvh - 52px);
+    // height: calc(100dvh - 52px);
 
     .header {
         display: flex;

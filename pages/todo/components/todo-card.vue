@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <div class="empty" v-if="loading">加载中...</div>
+        <div class="loading" v-if="loading">Loading...</div>
         <div class="empty" v-else-if="todoList.length === 0">
             <img :src="EmptyImg" alt="empty" />
             <span v-if="props.type === TodoType.DAY">
@@ -252,9 +252,6 @@ const handleChange = async (item: TodoItem) => {
 const init = async () => {
     try {
         loading.value = true;
-        // const res = await fetch(
-        //     `/toolApi/todo/list?date=${props.date}&type=${props.type}`
-        // ).then((res) => res.json());
         const res = await useFetch(
             `https://www.mhhong.com/toolApi/todo/list?date=${props.date}&type=${props.type}`
         );
@@ -280,6 +277,13 @@ init();
     gap: 20px;
 
     margin-top: 10px;
+
+    .loading {
+        width: 100%;
+        margin-top: 200px;
+        text-align: center;
+        color: rgba(0, 0, 0, 0.45);
+    }
 
     .empty {
         margin-top: 120px;

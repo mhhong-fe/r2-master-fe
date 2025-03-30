@@ -2,12 +2,6 @@
     <div class="container">
         <DateSelect @change="refreshDate" />
         <TodoCard :date="date" :key="date" :type="TodoType.DAY"></TodoCard>
-        <!-- <div class="footer-menu">
-            <div>日</div>
-            <div>周</div>
-            <div>月</div>
-            <div>统计</div>
-        </div> -->
     </div>
 </template>
 
@@ -17,7 +11,7 @@ import TodoCard from "../components/todo-card.vue";
 import DateSelect from "../components/date-select.vue";
 import { TodoType } from "../type";
 definePageMeta({
-    key: (route) => route.fullPath,
+    name: "day",
     layout: "default",
 });
 
@@ -51,8 +45,8 @@ const refreshDate = (newDate: string) => {
 .container {
     max-width: 440px;
     margin: 0 auto;
-    background-color: #fafafa;
+    // background-color: #fafafa;
     padding: 12px;
-    height: calc(100dvh - 52px);
+    // height: calc(100dvh - 52px);
 }
 </style>
