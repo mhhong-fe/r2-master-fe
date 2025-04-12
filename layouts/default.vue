@@ -105,6 +105,7 @@ const list = [
     padding: 0 20px 12px 20px;
     height: 52px;
     line-height: 40px;
+    background-color: #fff;
 
     a {
         img {

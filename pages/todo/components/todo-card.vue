@@ -68,9 +68,9 @@
                         <div v-if="item.tag" class="todo-tag">
                             {{ item.tag }}
                         </div>
-                        <div class="edit-btn" @click="openDialog(item)">
+                        <!-- <div class="edit-btn" @click="openDialog(item)">
                             <van-icon name="ellipsis" />
-                        </div>
+                        </div> -->
                         <div class="edit-btn" @click="deleteTodo(item.id)">
                             <van-icon name="delete-o" />
                         </div>
