@@ -106,12 +106,15 @@ init();
         .tag-item {
             font-size: 13px;
             padding: 4px 12px;
-            background-color: #000;
+            background-color: #fff;
             border-radius: 5px;
-            color: #fff;
+            color: #323233;
+            border: 1px solid #e2e2e2;
+            color: #407fff;
 
             &.selected {
                 background-color: #407fff;
+                color: #fff;
             }
         }
     }
