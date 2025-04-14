@@ -129,7 +129,7 @@
 
 <script setup lang="ts">
 import { TodoType } from "../type";
-import EmptyImg from "@/assets/imgs/empty.webp";
+import EmptyImg from "@/assets/imgs/todo/empty.webp";
 
 interface TodoItem {
     id: number;

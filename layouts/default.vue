@@ -28,16 +28,16 @@
 </template>
 
 <script setup lang="ts">
-import DailyImg from "@/assets/imgs/day.png";
-import DailyActiveImg from "@/assets/imgs/day-active.png";
-import WeekImg from "@/assets/imgs/week.png";
-import WeekImgActive from "@/assets/imgs/week-active.png";
-import MonthImg from "@/assets/imgs/month.png";
-import MonthAcitiveImg from "@/assets/imgs/month-active.png";
-import YearImg from "@/assets/imgs/year.png";
-import YearActiveImg from "@/assets/imgs/year-active.png";
-import DataImg from "@/assets/imgs/data.png";
-import DataActiveImg from "@/assets/imgs/data-active.png";
+import DailyImg from "@/assets/imgs/todo/day.png";
+import DailyActiveImg from "@/assets/imgs/todo/day-active.png";
+import WeekImg from "@/assets/imgs/todo/week.png";
+import WeekImgActive from "@/assets/imgs/todo/week-active.png";
+import MonthImg from "@/assets/imgs/todo/month.png";
+import MonthAcitiveImg from "@/assets/imgs/todo/month-active.png";
+import YearImg from "@/assets/imgs/todo/year.png";
+import YearActiveImg from "@/assets/imgs/todo/year-active.png";
+import DataImg from "@/assets/imgs/todo/data.png";
+import DataActiveImg from "@/assets/imgs/todo/data-active.png";
 
 const route = useRoute();
 
