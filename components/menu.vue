@@ -68,6 +68,7 @@ const handleClick = (route: string) => {
     align-items: center;
     padding-left: 24px;
     cursor: pointer;
+    text-decoration: none;
 
     &.selected {
         background-color: #1c1c1d;
@@ -80,9 +81,12 @@ const handleClick = (route: string) => {
     }
 
     &.clip {
-        .menu-item-inner .menu-icon {
-            width: 20px;
-            height: 20px;
+        .menu-item-inner {
+            gap: 3px;
+            .menu-icon {
+                width: 20px;
+                height: 20px;
+            }
         }
     }
 
