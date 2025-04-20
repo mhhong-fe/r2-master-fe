@@ -20,7 +20,7 @@ import { TodoType } from "../type";
 
 definePageMeta({
     name: "year",
-    layout: "default",
+    layout: "todo",
 });
 
 useHead({

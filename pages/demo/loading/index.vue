@@ -1,13 +1,15 @@
 <template>
-    <div class="wrapper">
-        <div class="dot-elastic"></div>
+    <div class="container">
+        <div class="card">
+            <div class="dot-elastic"></div>
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
 definePageMeta({
     name: "loading",
-    layout: false,
+    layout: "demo",
 });
 </script>
 
@@ -72,7 +74,15 @@ definePageMeta({
     }
 }
 
-.wrapper {
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -81,7 +91,6 @@ definePageMeta({
     width: 120px;
     height: 240px;
     border-radius: 16px;
-    margin: 100px auto;
 
     .dot-elastic {
         position: relative;

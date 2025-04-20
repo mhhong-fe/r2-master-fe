@@ -12,7 +12,7 @@ import DateSelect from "../components/date-select.vue";
 import { TodoType } from "../type";
 definePageMeta({
     name: "day",
-    layout: "default",
+    layout: "todo",
 });
 
 useHead({

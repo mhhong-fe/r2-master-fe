@@ -20,7 +20,7 @@ import { TodoType } from "../type";
 
 definePageMeta({
     name: "month",
-    layout: "default",
+    layout: "todo",
 });
 
 useHead({

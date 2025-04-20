@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 definePageMeta({
-    name: "heapMap",
+    name: "clip",
     layout: "demo",
 });
 </script>

@@ -23,7 +23,7 @@ const goToHome = () => {
     height: 100vh;
     flex-direction: column;
     align-items: center;
-    padding-top: 30%;
+    padding-top: 160px;
 
     img {
         width: 400px;
@@ -31,10 +31,10 @@ const goToHome = () => {
     }
 
     .back-btn {
-        border: 1px solid #407fff;
+        border: 1px solid #739e79;
         padding: 12px 24px;
         border-radius: 12px;
-        color: #407fff;
+        color: #739e79;
         cursor: pointer;
     }
 }

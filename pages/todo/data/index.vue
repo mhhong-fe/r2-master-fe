@@ -47,7 +47,7 @@
 <script setup lang="ts">
 definePageMeta({
     name: "data",
-    layout: "default",
+    layout: "todo",
 });
 
 const loading = ref(false);
