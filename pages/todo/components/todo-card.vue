@@ -20,59 +20,40 @@
                 :pivot-text="pivotText"
                 stroke-width="8px"
             />
-            <div v-if="uncompletedList.length" class="todo-list">
+            <div class="todo-wrapper">
                 <div
-                    v-for="item in uncompletedList"
-                    :key="item.title"
-                    class="todo-item"
+                    class="group-wrapper"
+                    v-for="(items, tag) in todoTagMap"
+                    :key="tag"
                 >
-                    <van-checkbox
-                        v-model="item.completed"
-                        @change="handleChange(item)"
-                        :true-value="1"
-                        :false-value="0"
-                    >
-                    </van-checkbox>
-                    <div class="todo-title" @click="openDialog(item)">
-                        <span>{{ item.title }}</span>
-                    </div>
-                    <div class="todo-right">
-                        <div v-if="item.tag" class="todo-tag">
-                            {{ item.tag }}
-                        </div>
-                        <!-- <div class="edit-btn" @click="openDialog(item)">
-                            <van-icon name="ellipsis" />
-                        </div> -->
-                        <div class="edit-btn" @click="deleteTodo(item.id)">
-                            <van-icon name="delete-o" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div v-if="completedList.length" class="todo-list">
-                <div class="title">已完成</div>
-                <div
-                    v-for="item in completedList"
-                    :key="item.title"
-                    class="todo-item"
-                >
-                    <van-checkbox
-                        v-model="item.completed"
-                        @change="handleChange(item)"
-                        :true-value="1"
-                        :false-value="0"
-                    >
-                        <span class="todo-title">{{ item.title }}</span>
-                    </van-checkbox>
-                    <div class="todo-right">
-                        <div v-if="item.tag" class="todo-tag">
-                            {{ item.tag }}
-                        </div>
-                        <!-- <div class="edit-btn" @click="openDialog(item)">
-                            <van-icon name="ellipsis" />
-                        </div> -->
-                        <div class="edit-btn" @click="deleteTodo(item.id)">
-                            <van-icon name="delete-o" />
+                    <div class="group-title">{{ tag }}</div>
+                    <div class="todo-list">
+                        <div
+                            v-for="item in items"
+                            :key="item.title"
+                            class="todo-item"
+                        >
+                            <van-checkbox
+                                v-model="item.completed"
+                                @change="handleChange(item)"
+                                :true-value="1"
+                                :false-value="0"
+                            >
+                            </van-checkbox>
+                            <div class="todo-title" @click="openDialog(item)">
+                                <span>{{ item.title }}</span>
+                            </div>
+                            <div class="todo-right">
+                                <!-- <div v-if="item.tag" class="todo-tag">
+                                    {{ item.tag }}
+                                </div> -->
+                                <div
+                                    class="edit-btn"
+                                    @click="deleteTodo(item.id)"
+                                >
+                                    <van-icon name="delete-o" />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -144,6 +125,17 @@ const props = defineProps<{
 }>();
 
 const todoList = ref<TodoItem[]>([]);
+
+const todoTagMap = computed(() => {
+    const map: Record<string, TodoItem[]> = {};
+    todoList.value.forEach((item) => {
+        if (!map[item.tag]) {
+            map[item.tag] = [];
+        }
+        map[item.tag].push(item);
+    });
+    return map;
+});
 
 const completedList = ref<TodoItem[]>([]);
 const uncompletedList = ref<TodoItem[]>([]);
@@ -277,6 +269,7 @@ init();
     gap: 20px;
 
     margin-top: 10px;
+    height: calc(100vh - 100px);
 
     .loading {
         width: 100%;
@@ -303,15 +296,36 @@ init();
         }
     }
 
-    .todo-list {
-        border: 1px solid #e8e8e8;
-        border-radius: 8px;
-        background-color: #fff;
+    .todo-wrapper {
+        padding-bottom: 20px;
+        overflow-y: scroll;
+    }
 
-        .title {
-            // font-size: 12px;
-            padding: 12px 12px 0 12px;
-            color: #606266;
+    .group-wrapper {
+        margin-top: 24px;
+        border-radius: 8px;
+        overflow: hidden;
+
+        &:first-child {
+            margin-top: 0;
+        }
+
+        .group-title {
+            padding: 12px;
+            font-size: 12px;
+            color: #fff;
+            background-color: #53b672;
+        }
+
+        .todo-list {
+            border: 1px solid #e8e8e8;
+            border-radius: 0 0 8px 8px;
+            background-color: #fff;
+
+            .title {
+                padding: 12px 12px 0 12px;
+                color: #606266;
+            }
         }
     }
 
