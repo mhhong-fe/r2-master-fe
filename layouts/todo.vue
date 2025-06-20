@@ -83,6 +83,8 @@ const list = [
 <style scoped>
 .app-container {
     width: 100vw;
+    height: 100vh;
+    overflow: hidden;
 }
 
 .footer-container {
