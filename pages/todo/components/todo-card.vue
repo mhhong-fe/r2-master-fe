@@ -297,8 +297,11 @@ init();
     }
 
     .todo-wrapper {
-        padding-bottom: 20px;
         overflow-y: scroll;
+        width: calc(100% + 24px);
+        position: relative;
+        padding: 0 12px 100px;
+        left: -12px;
     }
 
     .group-wrapper {
