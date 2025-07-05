@@ -16,14 +16,14 @@ export default defineNuxtConfig({
     css: ["@/assets/styles/index.scss"],
     // 配置 devServer 和 proxy
     nitro: {
-        devProxy: {
-            "/toolApi": {
-                // 匹配的前缀
-                target: "http://localhost:4000", // 后端服务器地址
-                changeOrigin: true, // 允许跨域
-                secure: false, // 如果是 https，需要设置为 false
-            },
-        },
+        // devProxy: {
+        //     "/taskApi": {
+        //         // 匹配的前缀
+        //         target: "http://localhost:4000", // 后端服务器地址
+        //         changeOrigin: true, // 允许跨域
+        //         secure: false, // 如果是 https，需要设置为 false
+        //     },
+        // },
     },
     // vite相关配置
     vite: {

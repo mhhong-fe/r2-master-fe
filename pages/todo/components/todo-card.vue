@@ -59,7 +59,7 @@
                 </div>
             </div>
         </template>
-        <van-popup
+        <!-- <van-popup
             v-model:show="dialogVisible"
             position="bottom"
             round
@@ -90,6 +90,7 @@
                     v-model="todoItem.tag"
                     label="标签"
                 />
+
                 <div class="confirm-btn">
                     <van-button
                         round
@@ -101,7 +102,14 @@
                     >
                 </div>
             </div>
-        </van-popup>
+        </van-popup> -->
+        <EditPop
+            v-model="dialogVisible"
+            :data="todoItem"
+            :target-list="targetList"
+            :date="date"
+            @refresh="refresh"
+        />
         <div class="add-btn" @click="openDialog()">
             <van-icon name="plus"></van-icon>
         </div>
@@ -111,6 +119,7 @@
 <script setup lang="ts">
 import { TodoType } from "../type";
 import EmptyImg from "@/assets/imgs/todo/empty.webp";
+import EditPop from "./editPop.vue";
 
 interface TodoItem {
     id: number;
@@ -125,6 +134,18 @@ const props = defineProps<{
 }>();
 
 const todoList = ref<TodoItem[]>([]);
+
+const targetList = ref([]);
+
+const getTargetList = async () => {
+    const res = await fetch("/toolApi/target/list", {
+        method: "get",
+        headers: {
+            "Content-Type": "application/json", // 添加请求头
+        },
+    }).then((res) => res.json());
+    targetList.value = res.data;
+};
 
 const todoTagMap = computed(() => {
     const map: Record<string, TodoItem[]> = {};
@@ -171,6 +192,11 @@ const openDialog = (item = defaultTodo) => {
     editedTodo.value = item;
     todoItem.value = item ? { ...item } : { ...defaultTodo };
     dialogVisible.value = true;
+};
+
+const refresh = () => {
+    init();
+    editedTodo.value = {};
 };
 
 const addOrEdit = async () => {
@@ -244,22 +270,34 @@ const handleChange = async (item: TodoItem) => {
 const init = async () => {
     try {
         loading.value = true;
-        const res = await useFetch(
-            `https://www.mhhong.com/toolApi/todo/list?date=${props.date}&type=${props.type}`
-        );
-        todoList.value = res?.data.value.data;
+        // const res = await useFetch(
+        //     `/toolApi/todo/list?date=${props.date}&type=${props.type}`
+        // );
+        const res = await fetch(
+            `/toolApi/todo/list?date=${props.date}&type=${props.type}`,
+            {
+                method: "get",
+                headers: {
+                    "Content-Type": "application/json", // 添加请求头
+                },
+            }
+        ).then((res) => res.json());
+        todoList.value = res.data;
 
         completedList.value = todoList.value.filter((item) => item.completed);
         uncompletedList.value = todoList.value.filter(
             (item) => !item.completed
         );
+        getTargetList();
     } catch (error) {
     } finally {
         loading.value = false;
     }
 };
 
-init();
+onMounted(() => {
+    init();
+});
 </script>
 
 <style scoped lang="scss">
