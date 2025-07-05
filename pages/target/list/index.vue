@@ -48,9 +48,10 @@
 <script setup lang="ts">
 import EditPop from "./editPop.vue";
 import { useTasks } from "./useTask";
+import { type Goal } from "./useTask";
 definePageMeta({
     name: "target",
-    layout: "todo",
+    layout: "target",
 });
 
 useHead({
@@ -60,7 +61,7 @@ useHead({
         {
             name: "viewport",
             content:
-                "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0",
+                "width=device-width, getTargetListial-scale=1.0, maximum-scale=1.0, user-scalable=0",
         },
     ],
 });
@@ -76,13 +77,14 @@ const {
 
 const editPopVisible = ref(false);
 
-const list = ref([]);
+const list = ref([] as Goal[]);
 const selectedGola = ref({});
 
-const init = async () => {
+const getTargetList = async () => {
     try {
-        const { data, error: err } = await getAllGoals();
-        list.value = data.value || [];
+        const res = await getAllGoals();
+        console.log({ res });
+        list.value = res;
     } catch (error) {
         console.error(error);
     }
@@ -100,16 +102,16 @@ const handleDelete = async (item) => {
     }
     console.log({ item });
     deleteTask(item.id);
-    init();
+    getTargetList();
 };
 
 const refresh = () => {
-    init();
+    getTargetList();
     selectedGola.value = {};
 };
 
 onMounted(() => {
-    init();
+    getTargetList();
 });
 </script>
 

@@ -1,62 +1,66 @@
 // composables/useTasks.ts
-export function useTasks() {
-    const apiBase = "http://localhost:4000/tasks";
+export interface Goal {
+    id: number;
+    name: string;
+    description?: string;
+    progress: number;
+    score: number;
+    startDate?: string;
+    endDate?: string;
+    createdAt: string;
+    updatedAt: string;
+    totalTasks: number;
+    completedTasks: number;
+}
 
-    // 创建任务
-    const createTask = async (task: any) => {
-        const { data, error } = await useFetch(`${apiBase}/create`, {
-            method: "POST",
-            body: task,
-        });
+const apiBase = "http://localhost:4000/tasks";
 
-        return { data, error };
+export const useTasks = () => {
+    // 获取所有目标
+    const getAllGoals = async (): Promise<Goal[]> => {
+        return await $fetch(`${apiBase}/goals`);
     };
 
-    // 查询单个任务
+    // 获取某目标下的一级任务
+    const getTasksByGoal = async (goalId: number) => {
+        return await $fetch(`${apiBase}/goal/${goalId}/tasks`);
+    };
+
+    // 创建任务或目标
+    const createTask = async (payload: any) => {
+        return await $fetch(`${apiBase}/create`, {
+            method: "POST",
+            body: payload,
+        });
+    };
+
+    // 获取某个任务
     const getTask = async (id: number) => {
-        const { data, error } = await useFetch(`${apiBase}/get/${id}`);
-        return { data, error };
+        return await $fetch(`${apiBase}/${id}`);
     };
 
     // 更新任务
-    const updateTask = async (task: any) => {
-        const { data, error } = await useFetch(`${apiBase}/update`, {
+    const updateTask = async (payload: any) => {
+        return await $fetch(`${apiBase}/update`, {
             method: "POST",
-            body: task,
+            body: payload,
         });
-        return { data, error };
     };
 
     // 删除任务
-    const deleteTask = async (id: number) => {
-        const { data, error } = await useFetch(`${apiBase}/delete/${id}`, {
+    const deleteTask = async (payload: { id: number }) => {
+        return await $fetch(`${apiBase}/delete`, {
             method: "POST",
+            body: payload,
         });
-        return { data, error };
-    };
-
-    // 查询某目标下一级任务
-    const getTasksByGoal = async (goalId: number) => {
-        const { data, error } = await useFetch(
-            `${apiBase}/goal/${goalId}/tasks`
-        );
-        return { data, error };
-    };
-
-    // 获取所有目标
-    const getAllGoals = async () => {
-        console.log("----- get -----");
-        const { data, error } = await useFetch(`${apiBase}/goals`);
-        console.log({ data, error });
-        return { data, error };
     };
 
     return {
         getAllGoals,
+        getTasksByGoal,
         createTask,
         getTask,
         updateTask,
         deleteTask,
-        getTasksByGoal,
     };
-}
+};

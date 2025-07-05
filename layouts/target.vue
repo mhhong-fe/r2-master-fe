@@ -28,10 +28,10 @@
 </template>
 
 <script setup lang="ts">
-import TaskImg from "@/assets/imgs/todo/task.png";
-import TaskActiveImg from "@/assets/imgs/todo/task-active.png";
-import TargetImg from "@/assets/imgs/todo/target.png";
-import TargetActiveImg from "@/assets/imgs/todo/target-active.png";
+import TaskImg from "@/assets/imgs/target/task.png";
+import TaskActiveImg from "@/assets/imgs/target/task-active.png";
+import TargetImg from "@/assets/imgs/target/target.png";
+import TargetActiveImg from "@/assets/imgs/target/target-active.png";
 
 const route = useRoute();
 
@@ -45,34 +45,13 @@ const list = [
         text: "目标",
     },
     {
-        route: "/todo/day",
-        key: "day",
+        route: "/target/task",
+        key: "task",
         img: TaskImg,
         activeImg: TaskActiveImg,
         className: "icon day-icon",
         text: "任务",
     },
-    // {
-    //     route: "/todo/month",
-    //     key: "month",
-    //     img: MonthImg,
-    //     activeImg: MonthAcitiveImg,
-    //     className: "icon month",
-    // },
-    // {
-    //     route: "/todo/year",
-    //     key: "year",
-    //     img: YearImg,
-    //     activeImg: YearActiveImg,
-    //     className: "icon year",
-    // },
-    // {
-    //     route: "/todo/data",
-    //     key: "data",
-    //     img: DataImg,
-    //     activeImg: DataActiveImg,
-    //     className: "icon data",
-    // },
 ];
 </script>
 
