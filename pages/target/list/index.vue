@@ -46,7 +46,7 @@
             </van-button>
         </div>
     </div>
-    <EditPop v-model="editPopVisible" :data="selectedGola" @refresh="refresh" />
+    <EditPop v-model="editPopVisible" :data="selectedGoal" @refresh="refresh" />
 </template>
 
 <script setup lang="ts">
@@ -85,7 +85,7 @@ const router = useRouter();
 const editPopVisible = ref(false);
 
 const list = ref([] as Goal[]);
-const selectedGola = ref({});
+const selectedGoal = ref({});
 
 const getTargetList = async () => {
     try {
@@ -98,7 +98,7 @@ const getTargetList = async () => {
 };
 
 const openEditPop = (item: Goal) => {
-    selectedGola.value = item;
+    selectedGoal.value = item;
     editPopVisible.value = true;
 };
 
@@ -118,7 +118,7 @@ const jumpToDetail = (item: Goal) => {
 
 const refresh = () => {
     getTargetList();
-    selectedGola.value = {};
+    selectedGoal.value = {};
 };
 
 onMounted(() => {
