@@ -30,10 +30,10 @@
         </div>
         <div class="card-container">
             <TargetCard
-                v-show="activeTab === TabType.target"
+                v-if="activeTab === TabType.target"
                 :data="targetDetail"
             />
-            <TaskCard v-show="activeTab === TabType.task" />
+            <TaskCard v-else="activeTab === TabType.task" />
         </div>
     </div>
 </template>
@@ -71,7 +71,7 @@ const { getGoalById } = useTasks();
 const route = useRoute();
 const router = useRouter();
 console.log({ route });
-const activeTab = ref(TabType.target);
+const activeTab = ref(TabType.task);
 
 const targetDetail = ref({} as Goal);
 
