@@ -48,10 +48,11 @@ export const useTasks = () => {
     };
 
     // 删除任务
-    const deleteTask = async (payload: { id: number }) => {
+    const deleteTask = async (id: number) => {
+        console.log({ id });
         return await $fetch(`${apiBase}/delete`, {
             method: "POST",
-            body: payload,
+            body: { id },
         });
     };
 

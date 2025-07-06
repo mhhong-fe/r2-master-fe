@@ -1,15 +1,19 @@
 <template>
     <div class="container">
         <div class="title">目标列表</div>
-        <div>
+        <div class="target-list">
             <van-swipe-cell v-for="item in list" :key="item.id">
                 <van-cell :border="false">
-                    <div class="target-item">
+                    <div class="target-item" @click="jumpToDetail(item)">
                         <div class="title-line">
                             <div class="target-title">
                                 {{ item.name }}
                             </div>
-                            <div class="left-date">剩余182d</div>
+                            <div class="left-date">
+                                剩余
+                                {{ dayjs(item.endDate).diff(dayjs(), "day") }}
+                                d
+                            </div>
                         </div>
                         <div class="target-num">
                             任务完成 {{ item.completedTasks }} /
@@ -49,6 +53,7 @@
 import EditPop from "./editPop.vue";
 import { useTasks } from "./useTask";
 import { type Goal } from "./useTask";
+import dayjs from "dayjs";
 definePageMeta({
     name: "target",
     layout: "target",
@@ -75,6 +80,8 @@ const {
     getAllGoals,
 } = useTasks();
 
+const router = useRouter();
+
 const editPopVisible = ref(false);
 
 const list = ref([] as Goal[]);
@@ -90,19 +97,23 @@ const getTargetList = async () => {
     }
 };
 
-const openEditPop = (item) => {
+const openEditPop = (item: Goal) => {
     selectedGola.value = item;
     editPopVisible.value = true;
 };
 
-const handleDelete = async (item) => {
+const handleDelete = async (item: Goal) => {
     if (item.progress > 0) {
         showToast("已关联任务，不允许删除！");
         return;
     }
     console.log({ item });
-    deleteTask(item.id);
+    await deleteTask(item.id);
     getTargetList();
+};
+
+const jumpToDetail = (item: Goal) => {
+    router.push(`/target/task/${item.id}`);
 };
 
 const refresh = () => {
