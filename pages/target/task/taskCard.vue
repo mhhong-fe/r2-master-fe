@@ -41,7 +41,7 @@ import Id from "./[id].vue";
 
 const editPopVisible = ref(false);
 
-const { getTasksByGoal, updateTask } = useTasks();
+const { getTasksByGoal, updateTask, deleteTask } = useTasks();
 const taskList = ref([] as Task[]);
 const selectedGoal = ref({});
 
@@ -140,7 +140,9 @@ function handleTaskUpdate(id: number, done: boolean) {
     // TODO: 调用 API 同步状态
 }
 
-const handleDelete = (id: number) => {};
+const handleDelete = (id: number) => {
+    deleteTask(id);
+};
 
 const handleToggleCheck = async (id: number) => {
     const selectedTask = taskList.value.find((item) => item.id === id);

@@ -20,10 +20,11 @@
                     <span class="task-name">{{ task.name }}</span>
 
                     <span class="task-meta">
-                        完成情况：{{ task.completedTasks }}/{{
+                        任务情况：{{ task.completedTasks }}/{{
                             task.totalTasks
                         }}
                     </span>
+                    <span class="task-meta">分值：{{ task.score }}</span>
                 </div>
             </div>
             <template #right>
@@ -46,16 +47,13 @@
                 class="sub-task"
                 :class="[`level-${child.level}`, child.isLeaf && 'leaf-node']"
             >
-                <div
-                    v-if="child.isLeaf"
-                    class="checkbox"
-                    @click="toggleCheck(child)"
-                >
-                    <div v-if="!isCompleted(task)" class="unchecked"></div>
+                <div class="checkbox" @click="toggleCheck(child)">
+                    <div v-if="!isCompleted(child)" class="unchecked"></div>
                     <img v-else src="@/assets/imgs/task/checked.png" alt="" />
                 </div>
                 <span>{{ child.name }}</span>
                 <span>层级：{{ child.level }}</span>
+                <span class="task-meta">分值：{{ child.score }}</span>
             </div>
             <template #right>
                 <div class="right-area">
@@ -92,6 +90,11 @@ const { task, level } = defineProps<{
 
 const emit = defineEmits(["update", "add", "edit", "delete", "toggleCheck"]);
 
+const taskList = computed(() => {
+    if (props.task.children) {
+    }
+});
+
 const isCompleted = (task: Task) => {
     return task.progress >= 100;
 };
@@ -125,7 +128,7 @@ const handleDelete = (task: Task) => {
     margin-left: 0;
     margin-top: 12px;
     border-radius: 8px;
-    padding: 12px;
+    // padding: 12px;
 
     .task-header {
         display: flex;
@@ -134,7 +137,10 @@ const handleDelete = (task: Task) => {
         padding-left: 0.5rem;
         justify-content: space-between;
         border-bottom: 1px solid #e2e2e2;
-        padding: 8px 0;
+        padding: 12px 0;
+        background-color: #fff;
+        padding-left: 12px;
+        border-radius: 8px 8px 0 0;
 
         .task-left {
             display: flex;
@@ -190,26 +196,26 @@ const handleDelete = (task: Task) => {
     .sub-task {
         font-size: 14px;
         display: flex;
-        padding: 8px 0;
+        padding: 12px 0;
         gap: 8px;
         border-bottom: 1px solid #e2e2e2;
 
         &.leaf-node {
-            border-bottom: 0;
-            padding-bottom: 0;
+            // border-bottom: 0;
+            // padding-bottom: 0;
         }
 
         // 子任务是从第二级开始的
         &.level-2 {
-            margin-left: 20px;
+            margin-left: 32px;
         }
 
         &.level-3 {
-            margin-left: 40px;
+            margin-left: 52px;
         }
 
         &.level-4 {
-            margin-left: 60px;
+            margin-left: 72px;
         }
 
         .checkbox {
@@ -232,6 +238,7 @@ const handleDelete = (task: Task) => {
         gap: 6px;
         height: 100%;
         padding: 0 24px;
+        background-color: #eff1fa;
 
         .btn {
             width: 32px;
