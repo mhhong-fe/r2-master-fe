@@ -140,8 +140,9 @@ function handleTaskUpdate(id: number, done: boolean) {
     // TODO: 调用 API 同步状态
 }
 
-const handleDelete = (id: number) => {
-    deleteTask(id);
+const handleDelete = async (id: number) => {
+    await deleteTask(id);
+    getTaskList();
 };
 
 const handleToggleCheck = async (id: number) => {

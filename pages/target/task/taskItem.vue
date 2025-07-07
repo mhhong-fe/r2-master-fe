@@ -6,7 +6,7 @@
             !task.children?.length && 'leaf-node',
         ]"
     >
-        <van-swipe-cell>
+        <!-- <van-swipe-cell>
             <div class="task-header">
                 <div class="task-left">
                     <div class="checkbox" @click="toggleCheck(task)">
@@ -40,9 +40,9 @@
                     </div>
                 </div>
             </template>
-        </van-swipe-cell>
+        </van-swipe-cell> -->
         <!-- 可以跟上面的合并 -->
-        <van-swipe-cell v-for="child in task.children">
+        <van-swipe-cell v-for="child in taskList">
             <div
                 class="sub-task"
                 :class="[`level-${child.level}`, child.isLeaf && 'leaf-node']"
@@ -52,8 +52,9 @@
                     <img v-else src="@/assets/imgs/task/checked.png" alt="" />
                 </div>
                 <span>{{ child.name }}</span>
-                <span>层级：{{ child.level }}</span>
+                <!-- <span>层级：{{ child.level }}</span> -->
                 <span class="task-meta">分值：{{ child.score }}</span>
+                <span class="progress">进度：{{ child.progress }}</span>
             </div>
             <template #right>
                 <div class="right-area">
@@ -91,8 +92,14 @@ const { task, level } = defineProps<{
 const emit = defineEmits(["update", "add", "edit", "delete", "toggleCheck"]);
 
 const taskList = computed(() => {
-    if (props.task.children) {
+    let res = [];
+    if (task.children?.length) {
+        res = JSON.parse(JSON.stringify([task, ...task.children]));
+    } else {
+        res = JSON.parse(JSON.stringify([task]));
     }
+    console.error({ taskList: res });
+    return res;
 });
 
 const isCompleted = (task: Task) => {
@@ -203,6 +210,11 @@ const handleDelete = (task: Task) => {
         &.leaf-node {
             // border-bottom: 0;
             // padding-bottom: 0;
+        }
+
+        // 子任务是从第二级开始的
+        &.level-1 {
+            margin-left: 12px;
         }
 
         // 子任务是从第二级开始的
