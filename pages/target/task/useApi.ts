@@ -30,7 +30,7 @@ export interface Task {
     children?: Task[]; // 嵌套子任务
 }
 
-const apiBase = "http://localhost:4000/tasks";
+const apiBase = "https://mhhong.com/toolApi/tasks";
 
 export const useTasks = () => {
     // ✅ 获取目标详情（仅限 type = 'goal'）

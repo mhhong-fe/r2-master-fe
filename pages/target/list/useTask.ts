@@ -13,7 +13,7 @@ export interface Goal {
     completedTasks: number;
 }
 
-const apiBase = "http://localhost:4000/tasks";
+const apiBase = "https://mhhong.com/toolApi/tasks";
 
 export const useTasks = () => {
     // 获取所有目标
