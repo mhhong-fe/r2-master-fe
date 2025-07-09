@@ -25,11 +25,14 @@
         <!-- TODO: 这一段瞎写的 -->
         <div class="progress-container">
             <div class="title">目标进度</div>
-            <div class="sub-title">比预期慢50%</div>
+            <div class="sub-title">{{ progressText }}</div>
             <div class="progress-wrapper">
                 <div
                     class="progress-inner"
-                    :style="{ width: `${40}%`, backgroundColor: progressColor }"
+                    :style="{
+                        width: `${data.progress}%`,
+                        backgroundColor: progressColor,
+                    }"
                 ></div>
                 <span class="progress-text">{{ data.progress }}%</span>
             </div>
@@ -45,6 +48,7 @@
 import type { Goal } from "./useApi";
 import Progress from "@/components/progress.vue";
 import dayjs from "dayjs";
+
 const { data } = defineProps<{
     data: Goal;
 }>();
@@ -66,9 +70,39 @@ const leftDate = computed(() => {
     return dayjs(data.endDate).diff(dayjs(), "day");
 });
 
+/**
+ * 计算任务的预期进度与实际进度差值
+ */
+const getProgressDelta = (task: Goal) => {
+    if (!task.progress) {
+        return 0;
+    }
+    const today = dayjs();
+
+    const start = dayjs(task.startDate);
+    const end = dayjs(task.endDate);
+
+    const totalDays = end.diff(start, "day");
+    const passedDays = today.diff(start, "day");
+
+    const expectedProgress =
+        totalDays === 0
+            ? 100
+            : Math.round((passedDays / totalDays) * 1000) / 10;
+
+    return task.progress - expectedProgress;
+};
+
+const deltaProgress = computed(() => getProgressDelta(data));
+
+const progressText = computed(() => {
+    return deltaProgress.value > 0
+        ? `比预期快${deltaProgress.value}%`
+        : `比预期慢${deltaProgress.value}%`;
+});
+
 const progressColor = computed(() => {
-    const isSlow = Math.random() < 0.5;
-    return "#ff4d4f";
+    return deltaProgress.value > 0 ? "#407fff" : "#ff4d4f";
 });
 </script>
 

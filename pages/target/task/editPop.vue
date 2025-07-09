@@ -117,13 +117,11 @@ const showEndPicker = ref(false);
 const isEdit = computed(() => props.data.id);
 
 const onStartConfirm = (val) => {
-    console.log(val);
     formData.value.startDate = val.selectedValues.join("-");
     showStartPicker.value = false;
 };
 
 const onEndConfirm = (val) => {
-    console.log(val);
     formData.value.endDate = val.selectedValues.join("-");
     showEndPicker.value = false;
 };
@@ -136,7 +134,6 @@ const addOrEdit = async () => {
     ) {
         showToast("缺少必填字段");
     }
-    console.log({ props, isEdit });
     const api = isEdit.value ? updateTask : createTask;
     if (isEdit.value) {
         await updateTask({

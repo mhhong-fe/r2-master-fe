@@ -4,9 +4,9 @@
             <div class="header-left" @click="handleBack">
                 <img src="@/assets/imgs/task/arrow-left.png" alt="" />
             </div>
-            <div class="header-right">
+            <!-- <div class="header-right">
                 <img src="@/assets/imgs/task/edit.png" alt="" />
-            </div>
+            </div> -->
         </div>
         <div class="title">
             <div class="line"></div>
@@ -16,14 +16,14 @@
             <div
                 class="target tab-item"
                 :class="{ active: activeTab === TabType.target }"
-                @click="activeTab = TabType.target"
+                @click="handleTabClick(TabType.target)"
             >
                 总览
             </div>
             <div
                 class="task tab-item"
                 :class="{ active: activeTab === TabType.task }"
-                @click="activeTab = TabType.task"
+                @click="handleTabClick(TabType.task)"
             >
                 任务
             </div>
@@ -70,7 +70,6 @@ const { getGoalById } = useTasks();
 
 const route = useRoute();
 const router = useRouter();
-console.log({ route });
 const activeTab = ref(TabType.target);
 
 const targetDetail = ref({} as Goal);
@@ -79,9 +78,15 @@ const handleBack = () => {
     router.back();
 };
 
+const handleTabClick = (tab: TabType) => {
+    activeTab.value = tab;
+    if (tab === TabType.target) {
+        init();
+    }
+};
+
 const init = async () => {
     const detail = await getGoalById(Number(route.params?.id));
-    console.log({ detail });
     targetDetail.value = detail;
 };
 

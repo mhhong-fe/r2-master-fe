@@ -61,7 +61,6 @@ const taskList = computed(() => {
     } else {
         res = JSON.parse(JSON.stringify([task]));
     }
-    console.error({ taskList: res });
     return res;
 });
 
