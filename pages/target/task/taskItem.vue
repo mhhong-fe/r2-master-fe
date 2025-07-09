@@ -6,42 +6,6 @@
             !task.children?.length && 'leaf-node',
         ]"
     >
-        <!-- <van-swipe-cell>
-            <div class="task-header">
-                <div class="task-left">
-                    <div class="checkbox" @click="toggleCheck(task)">
-                        <div v-if="!isCompleted(task)" class="unchecked"></div>
-                        <img
-                            v-else
-                            src="@/assets/imgs/task/checked.png"
-                            alt=""
-                        />
-                    </div>
-                    <span class="task-name">{{ task.name }}</span>
-
-                    <span class="task-meta">
-                        任务情况：{{ task.completedTasks }}/{{
-                            task.totalTasks
-                        }}
-                    </span>
-                    <span class="task-meta">分值：{{ task.score }}</span>
-                </div>
-            </div>
-            <template #right>
-                <div class="right-area">
-                    <div class="btn add-btn" @click="handleAdd(task)">
-                        <img src="@/assets/imgs/target/plus.png" alt="" />
-                    </div>
-                    <div class="btn edit-btn" @click="handleEdit(task)">
-                        <img src="@/assets/imgs/target/edit.png" alt="" />
-                    </div>
-                    <div class="btn delete-btn" @click="handleAdd(task)">
-                        <img src="@/assets/imgs/target/delete.png" alt="" />
-                    </div>
-                </div>
-            </template>
-        </van-swipe-cell> -->
-        <!-- 可以跟上面的合并 -->
         <van-swipe-cell v-for="child in taskList">
             <div
                 class="sub-task"
@@ -52,7 +16,6 @@
                     <img v-else src="@/assets/imgs/task/checked.png" alt="" />
                 </div>
                 <span>{{ child.name }}</span>
-                <!-- <span>层级：{{ child.level }}</span> -->
                 <span class="task-meta">分值：{{ child.score }}</span>
                 <span class="progress">进度：{{ child.progress }}</span>
             </div>
@@ -89,7 +52,7 @@ const { task, level } = defineProps<{
     level: number;
 }>();
 
-const emit = defineEmits(["update", "add", "edit", "delete", "toggleCheck"]);
+const emit = defineEmits([ "add", "edit", "delete", "toggleCheck"]);
 
 const taskList = computed(() => {
     let res = [];
@@ -137,66 +100,11 @@ const handleDelete = (task: Task) => {
     border-radius: 8px;
     // padding: 12px;
 
-    .task-header {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding-left: 0.5rem;
-        justify-content: space-between;
-        border-bottom: 1px solid #e2e2e2;
-        padding: 12px 0;
-        background-color: #fff;
-        padding-left: 12px;
-        border-radius: 8px 8px 0 0;
-
-        .task-left {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            .task-name {
-                font-size: 14px;
-                margin-left: 8px;
+    :deep(.van-swipe-cell) {
+        &:last-child {
+            .sub-task {
+                border-bottom: 0;
             }
-
-            .task-meta {
-                // color: #888;
-                font-size: 14px;
-            }
-
-            .checkbox {
-                div {
-                    width: 20px;
-                    height: 20px;
-                    border: 2px solid #e2e2e2;
-                    box-sizing: border-box;
-                }
-                img {
-                    width: 20px;
-                    height: 20px;
-                }
-            }
-        }
-
-        .task-right {
-            width: 24px;
-            height: 24px;
-            background-color: #407fff;
-            border-radius: 50%;
-            color: #fff;
-            font-size: 26px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            img {
-                width: 20px;
-                height: 20px;
-            }
-        }
-    }
-
-    &.leaf-node {
-        .task-header {
-            border-bottom: 0;
         }
     }
 
@@ -206,10 +114,10 @@ const handleDelete = (task: Task) => {
         padding: 12px 0;
         gap: 8px;
         border-bottom: 1px solid #e2e2e2;
+        box-sizing: border-box;
 
-        &.leaf-node {
-            // border-bottom: 0;
-            // padding-bottom: 0;
+        &:last-child {
+            border-bottom: 0;
         }
 
         // 子任务是从第二级开始的

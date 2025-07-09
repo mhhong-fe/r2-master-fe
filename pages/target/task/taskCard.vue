@@ -8,7 +8,6 @@
                     :key="task.id"
                     :task="task"
                     :level="0"
-                    @update="handleTaskUpdate"
                     @add="(id) => handleAdd(id)"
                     @edit="(id) => handleEdit(id)"
                     @delete="(id) => handleDelete(id)"

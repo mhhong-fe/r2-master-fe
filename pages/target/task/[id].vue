@@ -71,7 +71,7 @@ const { getGoalById } = useTasks();
 const route = useRoute();
 const router = useRouter();
 console.log({ route });
-const activeTab = ref(TabType.task);
+const activeTab = ref(TabType.target);
 
 const targetDetail = ref({} as Goal);
 

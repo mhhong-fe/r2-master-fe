@@ -166,6 +166,7 @@ const progressColor = computed(() => {
         margin-top: 12px;
         font-size: 14px;
         opacity: 0.7;
+        white-space: pre-wrap;
     }
 }
 </style>
