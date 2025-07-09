@@ -1,14 +1,6 @@
 <template>
     <div class="container">
-        <div class="header">
-            <div class="header-left" @click="handleBack">
-                <img src="@/assets/imgs/task/arrow-left.png" alt="" />
-            </div>
-            <!-- <div class="header-right">
-                <img src="@/assets/imgs/task/edit.png" alt="" />
-            </div> -->
-        </div>
-        <div class="title">
+        <div class="title" @click="handleBack">
             <div class="line"></div>
             <div class="text">{{ targetDetail.name }}</div>
         </div>
