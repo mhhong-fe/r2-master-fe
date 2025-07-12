@@ -1,13 +1,11 @@
 <template>
-    <div>
-        <h1>Home</h1>
-    </div>
+    <div>任务历史</div>
 </template>
 
 <script setup lang="ts">
 definePageMeta({
-    name: "target",
-    layout: false,
+    name: "history",
+    layout: "target",
 });
 </script>
 

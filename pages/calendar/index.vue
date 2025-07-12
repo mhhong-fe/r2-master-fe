@@ -1,13 +1,11 @@
 <template>
-    <div>
-        <h1>Home</h1>
-    </div>
+    <div>任务日历</div>
 </template>
 
 <script setup lang="ts">
 definePageMeta({
-    name: "target",
-    layout: false,
+    name: "calendar",
+    layout: "target",
 });
 </script>
 

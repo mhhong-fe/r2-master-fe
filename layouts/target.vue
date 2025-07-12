@@ -28,14 +28,25 @@
 </template>
 
 <script setup lang="ts">
-import TaskImg from "@/assets/imgs/target/task.png";
-import TaskActiveImg from "@/assets/imgs/target/task-active.png";
-import TargetImg from "@/assets/imgs/target/target.png";
-import TargetActiveImg from "@/assets/imgs/target/target-active.png";
+import TargetImg from "@/assets/imgs/layout/target.png";
+import TargetActiveImg from "@/assets/imgs/layout/target-active.png";
+import HomeImg from "@/assets/imgs/layout/home.png";
+import HomeActiveImg from "@/assets/imgs/layout/home-active.png";
+import CalendarImg from "@/assets/imgs/layout/date.png";
+import CalendarActiveImg from "@/assets/imgs/layout/date-active.png";
+import HistoryImg from "@/assets/imgs/layout/history.png";
+import HistoryActiveImg from "@/assets/imgs/layout/history-active.png";
 
 const route = useRoute();
-
 const list = [
+    {
+        route: "/home",
+        key: "home",
+        img: HomeImg,
+        activeImg: HomeActiveImg,
+        className: "icon home",
+        text: "主页",
+    },
     {
         route: "/target/list",
         key: "target",
@@ -45,21 +56,29 @@ const list = [
         text: "目标",
     },
     {
-        route: "/target/task",
-        key: "task",
-        img: TaskImg,
-        activeImg: TaskActiveImg,
-        className: "icon day-icon",
-        text: "任务",
+        route: "/calendar",
+        key: "calendar",
+        img: CalendarImg,
+        activeImg: CalendarActiveImg,
+        className: "icon calendar",
+        text: "日程",
+    },
+    {
+        route: "/history",
+        key: "history",
+        img: HistoryImg,
+        activeImg: HistoryActiveImg,
+        className: "icon history",
+        text: "历史",
     },
 ];
 </script>
 
-<style>
+<!-- <style>
 body {
     overflow: hidden;
 }
-</style>
+</style> -->
 
 <style scoped>
 .app-container {
@@ -99,32 +118,16 @@ body {
             margin-top: 6px;
         }
 
-        &.month {
-            img {
-                width: 24px;
-                height: 24px;
-                margin-top: 8px;
-            }
-        }
-
-        &.year {
-            img {
-                width: 24px;
-                height: 24px;
-                margin-top: 8px;
-            }
-        }
-        &.data {
-            img {
-                width: 24px;
-                height: 22px;
-                margin-top: 8px;
-            }
-        }
-
         &.target {
             img {
-                width: 24px;
+                width: 26px;
+                height: 26px;
+                margin-top: 8px;
+            }
+        }
+        &.calendar {
+            img {
+                width: 22px;
                 height: 24px;
                 margin-top: 8px;
             }
