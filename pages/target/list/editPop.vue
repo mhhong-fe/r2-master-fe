@@ -39,7 +39,6 @@
                     v-model="formData.startDateArr"
                     type="date"
                     title="开始日期"
-                    :min-date="new Date()"
                     @confirm="onStartConfirm"
                     @cancel="showStartPicker = false"
                 />

@@ -1,7 +1,6 @@
 <template>
     <div class="task-container">
         <div class="todo-container">
-            <div>待办任务</div>
             <div class="todo-list">
                 <TaskItem
                     v-for="task in taskTree"

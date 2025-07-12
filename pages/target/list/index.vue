@@ -195,7 +195,7 @@ onMounted(() => {
                     }
                     .progress-text {
                         position: absolute;
-                        right: -30px;
+                        right: -40px;
                         font-size: 12px;
                         color: rgba(0, 0, 0, 0.5);
                     }

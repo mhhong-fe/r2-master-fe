@@ -40,8 +40,8 @@
                 <van-date-picker
                     v-model="formData.startDateArr"
                     type="date"
-                    title="开始日期"
                     :min-date="new Date()"
+                    title="开始日期"
                     @confirm="onStartConfirm"
                     @cancel="showStartPicker = false"
                 />
@@ -101,7 +101,7 @@ const emits = defineEmits<{
 
 const { createTask, updateTask } = useTasks();
 
-const formData = ref({
+const defaultData = {
     name: "",
     description: "",
     startDateArr: [],
@@ -109,7 +109,8 @@ const formData = ref({
     endDateArr: [],
     endDate: "",
     score: undefined,
-});
+};
+const formData = ref({ ...defaultData });
 
 const showStartPicker = ref(false);
 const showEndPicker = ref(false);
@@ -158,6 +159,8 @@ watch(visible, (val) => {
             startDateArr: props.data.startDate.split("-"),
             endDateArr: props.data.endDate.split("-"),
         };
+    } else {
+        formData.value = { ...defaultData };
     }
 });
 </script>

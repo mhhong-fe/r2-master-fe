@@ -90,7 +90,7 @@ const getProgressDelta = (task: Goal) => {
             ? 100
             : Math.round((passedDays / totalDays) * 1000) / 10;
 
-    return task.progress - expectedProgress;
+    return Number((task.progress - expectedProgress).toFixed(1));
 };
 
 const deltaProgress = computed(() => getProgressDelta(data));
@@ -184,7 +184,7 @@ const progressColor = computed(() => {
         }
         .progress-text {
             position: absolute;
-            right: -30px;
+            right: -40px;
             font-size: 12px;
             color: rgba(0, 0, 0, 0.5);
         }
