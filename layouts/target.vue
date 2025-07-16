@@ -74,62 +74,62 @@ const list = [
 ];
 </script>
 
-<!-- <style>
-body {
-    overflow: hidden;
-}
-</style> -->
-
-<style scoped>
+<style scoped lang="scss">
 .app-container {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
     background-color: #eef1fb;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1;
+    max-height: calc(100dvh - env(safe-area-inset-bottom) - 52px);
+    // overflow: scroll;
 }
 
 .footer-container {
-    position: fixed;
-    width: 100%;
-    display: flex;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    justify-content: center;
-    border-top: 1px solid #ebebeb;
-}
-
-.footer-menu {
-    /* width: 100%; */
-    max-width: 440px;
-    display: flex;
-    justify-content: flex-start;
-    gap: 80px;
-    /* box-shadow: 10px 10px 10px #ebebeb; */
-    padding: 0 20px 12px 20px;
+    // position: fixed;
+    // width: 100%;
+    // bottom: 0;
+    // left: 0;
+    // right: 0;
     height: 52px;
-    line-height: 40px;
-    /* background-color: #fff; */
+    border-top: 1px solid #ebebeb;
+    background-color: #eef1fb;
+    padding-bottom: env(safe-area-inset-bottom);
+    z-index: 99;
+    .footer-menu {
+        max-width: 440px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 32px;
+        height: 52px;
+        line-height: 40px;
 
-    a {
-        img {
-            width: 28px;
-            height: 28px;
-            margin-top: 6px;
-        }
-
-        &.target {
+        a {
             img {
-                width: 26px;
-                height: 26px;
-                margin-top: 8px;
+                width: 28px;
+                height: 28px;
+                margin-top: 6px;
             }
-        }
-        &.calendar {
-            img {
-                width: 22px;
-                height: 24px;
-                margin-top: 8px;
+
+            &.target {
+                img {
+                    width: 26px;
+                    height: 26px;
+                    margin-top: 8px;
+                }
+            }
+            &.calendar {
+                img {
+                    width: 22px;
+                    height: 24px;
+                    margin-top: 8px;
+                }
             }
         }
     }
