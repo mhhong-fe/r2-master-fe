@@ -27,6 +27,28 @@
                 autocomplete="false"
             />
             <van-field
+                v-model="formData.score"
+                type="digit"
+                :min="0"
+                label-width="60"
+                label-align="right"
+                maxlength="16"
+                label="快捷选择"
+                autocomplete="false"
+            >
+                <template #input>
+                    <van-radio-group
+                        v-model="formData.quickDate"
+                        direction="horizontal"
+                        @change="handleQuickChange"
+                    >
+                        <van-radio :name="QuickDate.day">当日</van-radio>
+                        <van-radio :name="QuickDate.week">本周</van-radio>
+                        <van-radio :name="QuickDate.month">本月</van-radio>
+                    </van-radio-group>
+                </template>
+            </van-field>
+            <van-field
                 readonly
                 clickable
                 label-width="60"
@@ -87,6 +109,15 @@
 <script setup lang="ts">
 import dayjs from "dayjs";
 import { useTasks } from "./useApi";
+import isoWeek from "dayjs/plugin/isoWeek";
+
+dayjs.extend(isoWeek); // 以周一为一周的开始
+
+enum QuickDate {
+    day = 1,
+    week = 2,
+    month = 3,
+}
 
 const visible = defineModel<boolean>();
 
@@ -104,11 +135,12 @@ const { createTask, updateTask } = useTasks();
 const defaultData = {
     name: "",
     description: "",
-    startDateArr: [],
+    startDateArr: [] as string[],
     startDate: "",
-    endDateArr: [],
+    endDateArr: [] as string[],
     endDate: "",
     score: undefined,
+    quickDate: 0,
 };
 const formData = ref({ ...defaultData });
 
@@ -150,6 +182,37 @@ const addOrEdit = async () => {
     }
     visible.value = false;
     emits("refresh");
+};
+
+const handleQuickChange = (type: QuickDate) => {
+    const today = dayjs();
+
+    let start: dayjs.Dayjs;
+    let end: dayjs.Dayjs;
+    start = today.startOf("day");
+
+    switch (type) {
+        case QuickDate.day: // 当日
+            end = today.endOf("day");
+            break;
+        case QuickDate.week: // 本周
+            // start = today.startOf("day");
+            end = today.endOf("isoWeek");
+            break;
+        case QuickDate.month: // 本月
+            // start = today.startOf("day");
+            end = today.endOf("month");
+            break;
+        default:
+            return;
+    }
+
+    // startDateArr.value = [start.format("YYYY-MM-DD")];
+    // endDateArr.value = [end.format("YYYY-MM-DD")];
+    formData.value.startDate = start.format("YYYY-MM-DD");
+    formData.value.endDate = end.format("YYYY-MM-DD");
+    formData.value.startDateArr = start.format("YYYY-MM-DD").split("-");
+    formData.value.endDateArr = end.format("YYYY-MM-DD").split("-");
 };
 
 watch(visible, (val) => {
