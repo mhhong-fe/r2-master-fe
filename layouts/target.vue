@@ -77,7 +77,7 @@ const list = [
 <style scoped lang="scss">
 .app-container {
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     overflow: hidden;
     background-color: #eef1fb;
     display: flex;
