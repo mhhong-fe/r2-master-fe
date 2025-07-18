@@ -128,7 +128,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .container {
-    height: 100vh;
+    height: 100%;
     padding-bottom: 120px;
     overflow-y: scroll;
 
