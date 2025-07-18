@@ -129,15 +129,21 @@ onMounted(() => {
 <style scoped lang="scss">
 .container {
     height: 100%;
-    padding-bottom: 120px;
-    overflow-y: scroll;
+    // padding-bottom: 24px;
+    // overflow-y: scroll;
 
     .title {
         margin-left: 24px;
         margin-top: 16px;
-        margin-bottom: 12px;
+        margin-bottom: 8px;
         font-size: 30px;
         font-weight: bold;
+    }
+
+    .target-list {
+        height: calc(100% - 60px);
+        overflow: scroll;
+        padding-bottom: 24px;
     }
 
     :deep(.van-cell) {
