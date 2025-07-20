@@ -6,7 +6,7 @@ export default defineNuxtConfig({
         baseURL: "/tool/",
     },
     devServer: {
-        port: 8080, // 自定义开发端口
+        port: 3000, // 自定义开发端口
         host: "0.0.0.0", // 允许外部访问（默认本地 IP）
     },
     modules: ["@vant/nuxt"],

@@ -207,8 +207,6 @@ const handleQuickChange = (type: QuickDate) => {
             return;
     }
 
-    // startDateArr.value = [start.format("YYYY-MM-DD")];
-    // endDateArr.value = [end.format("YYYY-MM-DD")];
     formData.value.startDate = start.format("YYYY-MM-DD");
     formData.value.endDate = end.format("YYYY-MM-DD");
     formData.value.startDateArr = start.format("YYYY-MM-DD").split("-");
