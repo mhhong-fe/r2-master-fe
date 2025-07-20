@@ -38,6 +38,7 @@
                 <van-date-picker
                     v-model="formData.startDateArr"
                     type="date"
+                    :min-date="new Date()"
                     title="开始日期"
                     @confirm="onStartConfirm"
                     @cancel="showStartPicker = false"
