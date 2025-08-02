@@ -103,10 +103,6 @@ const openEditPop = (item: Goal) => {
 };
 
 const handleDelete = async (item: Goal) => {
-    if (item.progress > 0) {
-        showToast("已关联任务，不允许删除！");
-        return;
-    }
     console.log({ item });
     await deleteTask(item.id);
     getTargetList();

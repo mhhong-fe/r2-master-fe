@@ -6,28 +6,41 @@
             !task.children?.length && 'leaf-node',
         ]"
     >
-        <van-swipe-cell v-for="child in taskList">
+        <van-swipe-cell v-for="taskItem in taskList">
             <div
                 class="sub-task"
-                :class="[`level-${child.level}`, child.isLeaf && 'leaf-node']"
+                :class="[
+                    `level-${taskItem.level}`,
+                    taskItem.isLeaf && 'leaf-node',
+                ]"
             >
-                <div class="checkbox" @click="toggleCheck(child)">
-                    <div v-if="!isCompleted(child)" class="unchecked"></div>
+                <div
+                    v-if="taskItem.isLeaf"
+                    class="checkbox"
+                    @click="toggleCheck(taskItem)"
+                >
+                    <div v-if="!isCompleted(taskItem)" class="unchecked"></div>
                     <img v-else src="@/assets/imgs/task/checked.png" alt="" />
                 </div>
-                <span>{{ child.name }}</span>
-                <span class="task-meta">分值：{{ child.score }}</span>
-                <span class="progress">进度：{{ child.progress }}</span>
+                <span>{{ taskItem.name }}</span>
+                <span>{{ taskItem.score }}分</span>
+                <div v-if="!taskItem.isLeaf" class="progress-wrapper">
+                    <div
+                        class="progress-inner"
+                        :style="{ width: `${taskItem.progress}%` }"
+                    ></div>
+                    <span class="progress-text">{{ taskItem.progress }}%</span>
+                </div>
             </div>
             <template #right>
                 <div class="right-area">
-                    <div class="btn add-btn" @click="handleAdd(child)">
+                    <div class="btn add-btn" @click="handleAdd(taskItem)">
                         <img src="@/assets/imgs/target/plus.png" alt="" />
                     </div>
-                    <div class="btn edit-btn" @click="handleEdit(child)">
+                    <div class="btn edit-btn" @click="handleEdit(taskItem)">
                         <img src="@/assets/imgs/target/edit.png" alt="" />
                     </div>
-                    <div class="btn delete-btn" @click="handleDelete(child)">
+                    <div class="btn delete-btn" @click="handleDelete(taskItem)">
                         <img src="@/assets/imgs/target/delete.png" alt="" />
                     </div>
                 </div>
@@ -114,6 +127,7 @@ const handleDelete = (task: Task) => {
         gap: 8px;
         border-bottom: 1px solid #e2e2e2;
         box-sizing: border-box;
+        align-items: center;
 
         &:last-child {
             border-bottom: 0;
@@ -138,16 +152,44 @@ const handleDelete = (task: Task) => {
         }
 
         .checkbox {
-            height: 20px;
             div {
                 width: 20px;
                 height: 20px;
-                border: 1px solid #e2e2e2;
+                border: 2px solid #e2e2e2;
                 box-sizing: border-box;
+                height: 100%;
+                width: 100%;
+                border-radius: 50%;
             }
             img {
-                width: 20px;
-                height: 20px;
+                height: 100%;
+                width: 100%;
+                border-radius: 50%;
+            }
+        }
+
+        .progress-wrapper {
+            width: 80px;
+            height: 5px;
+            background-color: #e2e2e2;
+            border-radius: 6px;
+            position: relative;
+            display: flex;
+            align-items: center;
+
+            .progress-inner {
+                height: 100%;
+                background-color: #407fff;
+                border-radius: 8px;
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+            .progress-text {
+                position: absolute;
+                left: 90px;
+                font-size: 12px;
+                color: rgba(0, 0, 0, 0.5);
             }
         }
     }
@@ -192,7 +234,5 @@ const handleDelete = (task: Task) => {
             border-radius: 12px;
         }
     }
-
-    // 可继续往下加或用 Sass 循环生成
 }
 </style>
