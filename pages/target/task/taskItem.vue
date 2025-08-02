@@ -152,13 +152,12 @@ const handleDelete = (task: Task) => {
         }
 
         .checkbox {
+            width: 20px;
+            height: 20px;
             div {
-                width: 20px;
-                height: 20px;
-                border: 2px solid #e2e2e2;
-                box-sizing: border-box;
-                height: 100%;
                 width: 100%;
+                height: 100%;
+                border: 1px solid #e2e2e2;
                 border-radius: 50%;
             }
             img {
