@@ -355,7 +355,7 @@ const closeImage = () => {
 
         .timeline-line {
             position: absolute;
-            left: 10px;
+            left: 11px;
             top: 20px;
             width: 2px;
             height: calc(100% + 20px);

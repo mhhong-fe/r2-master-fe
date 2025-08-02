@@ -369,6 +369,7 @@ const getDayStyle = (day: DayData) => {
 
     return {
         backgroundColor,
+        color: "#fff",
         cursor: day.count && day.count > 0 ? "pointer" : "default",
     };
 };
@@ -513,7 +514,7 @@ const formatDate = (date: Date | undefined) => {
                     }
 
                     .day-number {
-                        font-size: 12px;
+                        font-size: 14px;
                         color: #333;
                         font-weight: 500;
                     }
@@ -711,7 +712,14 @@ const formatDate = (date: Date | undefined) => {
                 .days-grid {
                     .day-cell {
                         .day-number {
-                            font-size: 11px;
+                            font-size: 12px;
+                            color: #fff;
+                        }
+                        &.empty,
+                        &.level-0 {
+                            .day-number {
+                                color: #333;
+                            }
                         }
                     }
                 }
