@@ -52,7 +52,7 @@ const { task, level } = defineProps<{
     level: number;
 }>();
 
-const emit = defineEmits([ "add", "edit", "delete", "toggleCheck"]);
+const emit = defineEmits(["add", "edit", "delete", "toggleCheck"]);
 
 const taskList = computed(() => {
     let res = [];
@@ -110,7 +110,7 @@ const handleDelete = (task: Task) => {
     .sub-task {
         font-size: 14px;
         display: flex;
-        padding: 12px 0;
+        padding: 14px 0;
         gap: 8px;
         border-bottom: 1px solid #e2e2e2;
         box-sizing: border-box;
@@ -138,10 +138,11 @@ const handleDelete = (task: Task) => {
         }
 
         .checkbox {
+            height: 20px;
             div {
                 width: 20px;
                 height: 20px;
-                border: 2px solid #e2e2e2;
+                border: 1px solid #e2e2e2;
                 box-sizing: border-box;
             }
             img {
