@@ -87,15 +87,10 @@ const list = [
 .content {
     flex: 1;
     max-height: calc(100dvh - env(safe-area-inset-bottom) - 52px);
-    // overflow: scroll;
+    overflow: scroll;
 }
 
 .footer-container {
-    // position: fixed;
-    // width: 100%;
-    // bottom: 0;
-    // left: 0;
-    // right: 0;
     height: 52px;
     border-top: 1px solid #ebebeb;
     background-color: #eef1fb;
